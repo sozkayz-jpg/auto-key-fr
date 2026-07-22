@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /mentions-legales.html
+Disallow: /politique-cookies.html
+Sitemap: https://www.auto-key.fr/sitemap.xml
