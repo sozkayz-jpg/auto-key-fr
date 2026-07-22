@@ -91,6 +91,39 @@
     const amountEl = calc.querySelector('[data-amount]');
     const breakdownEl = calc.querySelector('[data-breakdown]');
     const resultSection = calc.querySelector('.calc-result');
+    const addrWrap = calc.querySelector('.calc-address-wrap');
+
+    function getTypeLabel(t) {
+      return {
+        'standard': 'Clé standard mécanique',
+        'puce': 'Clé avec puce anti-démarrage',
+        'telecommande': 'Clé avec télécommande',
+        'mainlibre': 'Clé "Main Libre" / Carte'
+      }[t] || 'Clé';
+    }
+
+    function update() {
+      const base = basePrices[state.type] || 49;
+      let extra = 0;
+      const lines = [];
+      lines.push(['Clé (' + getTypeLabel(state.type) + ')', base + '€']);
+      if (state.ouverture) {
+        extra += 30;
+        lines.push(['Ouverture de porte', '+30€']);
+      }
+      let travel = 0;
+      if (state.domicile && state.distance > freeRadius) {
+        travel = Math.round((state.distance - freeRadius) * distanceRate);
+        lines.push(['Déplacement (' + state.distance + ' km, au-delà de 15 km)', '+' + travel + '€']);
+      } else if (state.domicile) {
+        lines.push(['Déplacement (' + Math.max(state.distance, 0) + ' km)', 'Inclus']);
+      }
+      const total = base + extra + travel;
+      if (amountEl) amountEl.textContent = total + '€';
+      if (breakdownEl) {
+        breakdownEl.innerHTML = lines.map(l => '<li><span>' + l[0] + '</span><span>' + l[1] + '</span></li>').join('');
+      }
+    }
 
     function selectType(el) {
       optType.forEach(o => o.classList.remove('selected'));
@@ -102,8 +135,7 @@
 
     function toggleDomicile() {
       state.domicile = !state.domicile;
-      optDomicile.classList.toggle('selected', state.domicile);
-      const addrWrap = calc.querySelector('.calc-address-wrap');
+      if (optDomicile) optDomicile.classList.toggle('selected', state.domicile);
       if (addrWrap) addrWrap.style.display = state.domicile ? 'block' : 'none';
       if (state.domicile && addressInput && addressInput.value.trim().length >= 3) {
         geocodeAddress(addressInput.value.trim());
@@ -115,7 +147,7 @@
 
     function toggleOuverture() {
       state.ouverture = !state.ouverture;
-      optOuverture.classList.toggle('selected', state.ouverture);
+      if (optOuverture) optOuverture.classList.toggle('selected', state.ouverture);
       update();
     }
     if (optOuverture) optOuverture.addEventListener('click', toggleOuverture);
@@ -179,42 +211,7 @@
       });
     }
 
-    function update() {
-      const base = basePrices[state.type] || 49;
-      let extra = 0;
-      const lines = [];
-      lines.push(['Clé (' + getTypeLabel(state.type) + ')', base + '€']);
-      if (state.ouverture) {
-        extra += 30;
-        lines.push(['Ouverture de porte', '30€']);
-      }
-      let travel = 0;
-      if (state.domicile && state.distance > freeRadius) {
-        travel = Math.round((state.distance - freeRadius) * distanceRate);
-        lines.push(['Déplacement (' + state.distance + ' km)', travel + '€']);
-      } else if (state.domicile) {
-        lines.push(['Déplacement (' + Math.max(state.distance, 0) + ' km)', 'Inclus']);
-      }
-      const total = base + extra + travel;
-      if (amountEl) amountEl.textContent = total + '€';
-      if (breakdownEl) {
-        breakdownEl.innerHTML = lines.map(l => '<li><span>' + l[0] + '</span><span>' + l[1] + '</span></li>').join('');
-      }
-    }
-    function getTypeLabel(t) {
-      return {
-        'standard': 'Clé standard mécanique',
-        'puce': 'Clé avec puce anti-démarrage',
-        'telecommande': 'Clé avec télécommande',
-        'mainlibre': 'Clé "Main Libre" / Carte'
-      }[t] || 'Clé';
-    }
     update();
-  }
-
-  /* ---- Formulaire de contact ---- */
-  
-    });
   }
 
   /* ---- Année footer ---- */
