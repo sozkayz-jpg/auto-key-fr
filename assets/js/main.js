@@ -213,23 +213,7 @@
   }
 
   /* ---- Formulaire de contact ---- */
-  const contactForm = document.getElementById('contact-form');
-  if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const data = new FormData(contactForm);
-      const ok = document.getElementById('form-success');
-      // En production : envoi AJAX vers backend / Formspree / Brevo
-      // Ici on simule
-      contactForm.style.display = 'none';
-      if (ok) ok.classList.add('show');
-      // Ouvre aussi un mailto de secours
-      const nom = data.get('nom') || '';
-      const tel = data.get('tel') || '';
-      const msg = data.get('message') || '';
-      const sujet = encodeURIComponent('Demande de devis - ' + nom);
-      const corps = encodeURIComponent('Nom: ' + nom + '\nTéléphone: ' + tel + '\n\n' + msg);
-      window.location.href = 'mailto:contact@auto-key.fr?subject=' + sujet + '&body=' + corps;
+  
     });
   }
 
@@ -245,5 +229,53 @@
       a.classList.add('active');
     }
   });
+
+  /* ---- Formulaire de contact ---- */
+  const contactForm = document.getElementById('contact-form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const ok = document.getElementById('form-success');
+      const err = document.getElementById('form-error');
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Envoi en cours...'; }
+      const action = contactForm.getAttribute('action');
+      if (!action || action.startsWith('mailto:')) {
+        contactForm.style.display = 'none';
+        if (ok) ok.classList.add('show');
+        return;
+      }
+      fetch(action, { method: 'POST', body: new FormData(contactForm) })
+        .then(r => {
+          contactForm.style.display = 'none';
+          if (ok) ok.classList.add('show');
+          if (err) err.classList.remove('show');
+        })
+        .catch(() => {
+          if (err) err.classList.add('show');
+          if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Envoyer ma demande'; }
+        });
+    });
+  }
+
+  /* ---- Bandeau cookies RGPD ---- */
+  const cookieBanner = document.getElementById('cookie-banner');
+  if (cookieBanner && !localStorage.getItem('cookieConsent')) {
+    cookieBanner.classList.add('show');
+  }
+  const btnAccept = document.getElementById('cookie-accept');
+  const btnEssential = document.getElementById('cookie-essential');
+  if (btnAccept) {
+    btnAccept.addEventListener('click', function() {
+      localStorage.setItem('cookieConsent', 'all');
+      if (cookieBanner) cookieBanner.classList.remove('show');
+    });
+  }
+  if (btnEssential) {
+    btnEssential.addEventListener('click', function() {
+      localStorage.setItem('cookieConsent', 'essential');
+      if (cookieBanner) cookieBanner.classList.remove('show');
+    });
+  }
 
 })();
