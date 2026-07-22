@@ -390,6 +390,53 @@
 <div class="floating-actions">  <a href="tel:+33746571703" class="floating-btn tel" aria-label="Appeler">☎</a>  <a href="https://wa.me/33746571703" class="floating-btn wa" aria-label="WhatsApp">💬</a>
 </div>
 
-<script src="assets/js/main.min.js?v=5"></script>
+<script>
+(function(){
+  var calc = document.getElementById('calculator');
+  if (!calc) return;
+  var state = { type: 'standard', domicile: false, distance: 0, ouverture: false, horsplage: false };
+  var basePrices = { 'standard': 49, 'puce': 69, 'telecommande': 169, 'mainlibre': 199 };
+  var labels = { 'standard': 'Cle standard mecanique', 'puce': 'Cle avec puce anti-demarrage', 'telecommande': 'Cle avec telecommande', 'mainlibre': 'Cle Main Libre / Carte' };
+  function update() {
+    var base = basePrices[state.type] || 49;
+    var extra = 0, travel = 0, lines = [['Cle (' + labels[state.type] + ')', base + '\u20ac']];
+    if (state.ouverture) { extra += 30; lines.push(['Ouverture de porte', '+30\u20ac']); }
+    if (state.horsplage) { extra += 50; lines.push(['Dimanche ou hors plage 9h-18h', '+50\u20ac']); }
+    if (state.domicile && state.distance > 15) { travel = Math.round((state.distance - 15) * 1.2); lines.push(['Deplacement (' + state.distance + ' km, au-dela de 15 km)', '+' + travel + '\u20ac']); }
+    else if (state.domicile) { lines.push(['Deplacement', 'Inclus']); }
+    var total = base + extra + travel;
+    var amt = calc.querySelector('[data-amount]'); if (amt) amt.textContent = total + '\u20ac';
+    var bd = calc.querySelector('[data-breakdown]'); if (bd) bd.innerHTML = lines.map(function(l){return '<li><span>'+l[0]+'</span><span>'+l[1]+'</span></li>';}).join('');
+  }
+  var optType = calc.querySelectorAll('[data-type]');
+  for (var i=0; i<optType.length; i++) {
+    (function(o){
+      o.addEventListener('click', function(){
+        for (var j=0; j<optType.length; j++) optType[j].classList.remove('selected');
+      o.classList.add('selected');
+      state.type = o.getAttribute('data-type');
+      update();
+      });
+    })(optType[i]);
+  }
+  function bindToggle(sel, key) {
+    var el = calc.querySelector(sel); if (!el) return;
+    el.addEventListener('click', function(){
+      state[key] = !state[key];
+      el.classList.toggle('selected', state[key]);
+      if (key === 'domicile') {
+        var w = calc.querySelector('.calc-address-wrap');
+        if (w) w.style.display = state.domicile ? 'block' : 'none';
+      }
+      update();
+    });
+  }
+  bindToggle('[data-toggle=&quot;domicile&quot;]', 'domicile');
+  bindToggle('[data-toggle=&quot;ouverture&quot;]', 'ouverture');
+  bindToggle('[data-toggle=&quot;horsplage&quot;]', 'horsplage');
+  update();
+})();
+</script>
+<script src="assets/js/main.min.js?v=6"></script>
 </body>
 </html>
