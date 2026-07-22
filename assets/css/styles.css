@@ -529,10 +529,8 @@ p { margin-bottom: 1rem; }
 .mobile-overlay { position: fixed; inset: 0; background: rgba(10,11,15,.45); z-index: 1999; opacity: 0; visibility: hidden; transition: all .25s var(--ease); }
 .mobile-overlay.open { opacity: 1; visibility: visible; }
 
-:root { --reveal-y: 24px; }
-.reveal { opacity: 0; transform: translateY(var(--reveal-y)); transition: opacity .7s var(--ease), transform .7s var(--ease); }
-.reveal.visible { opacity: 1; transform: translateY(0); }
-.no-js .reveal, .reveal.no-animate { opacity: 1; transform: none; }
+.reveal { opacity: 1; transform: none; }
+.reveal.visible { }
 
 /* Cookie banner */
 .cookie-banner { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); border-top: 1px solid var(--gray-200); padding: 16px; z-index: 1000; box-shadow: 0 -4px 20px rgba(10,11,15,.08); display: none; }
