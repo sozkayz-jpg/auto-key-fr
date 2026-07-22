@@ -206,7 +206,8 @@
           <div class="toggle-info"><div class="toggle-name">Intervention à domicile</div><div class="toggle-price">Inclus dans un rayon de 15 km · 1,20€/km au-delà</div></div>
         </div>
         <div class="calc-address-wrap" style="display:none;margin-bottom:10px">
-          <input type="text" id="calc-address" class="calc-input" placeholder="Scionzier" value="Scionzier">
+          <input type="text" id="calc-address" class="calc-input" placeholder="Scionzier" value="Scionzier" autocomplete="off">
+          <button type="button" id="calc-distance-btn" class="btn btn-blue" style="margin-top:8px;width:100%">Calculer la distance</button>
           <div style="margin-top:8px;font-size:0.85rem;color:var(--c-muted)">Distance depuis Scionzier : <strong data-distance>0 km</strong></div>
         </div>
         <div class="calc-toggle" data-toggle="ouverture">
@@ -468,6 +469,12 @@
   bindToggle('[data-toggle="ouverture"]', 'ouverture');
   bindToggle('[data-toggle="horsplage"]', 'horsplage');
   var addr = calc.querySelector('#calc-address');
+  var distBtn = calc.querySelector('#calc-distance-btn');
+  function triggerGeo() {
+    var v = addr ? addr.value.trim() : '';
+    if (v.length < 3) { state.distance = 0; var d = calc.querySelector('[data-distance]'); if (d) d.textContent = '0 km'; update(); return; }
+    geocode(v);
+  }
   if (addr) {
     var timer = null;
     addr.addEventListener('input', function(){
@@ -476,6 +483,14 @@
       if (v.length < 3) { state.distance = 0; var d = calc.querySelector('[data-distance]'); if (d) d.textContent = '0 km'; update(); return; }
       timer = setTimeout(function(){ geocode(v); }, 600);
     });
+    addr.addEventListener('change', triggerGeo);
+    addr.addEventListener('blur', triggerGeo);
+    if (addr.value.trim() && addr.value.trim() !== 'Scionzier') {
+      setTimeout(triggerGeo, 200);
+    }
+  }
+  if (distBtn) {
+    distBtn.addEventListener('click', triggerGeo);
   }
   update();
 })();
