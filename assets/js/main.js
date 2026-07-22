@@ -67,7 +67,9 @@
 
   /* ---- Calculateur de prix ---- */
   const calc = document.getElementById('calculator');
-  if (calc) {
+  if (!calc) { console.log('[Auto-Key] Calculator not found'); }
+  else {
+    console.log('[Auto-Key] Calculator initialized');
     const basePrices = {
       'standard': 49,
       'puce': 69,
@@ -132,6 +134,11 @@
       update();
     }
     optType.forEach(o => o.addEventListener('click', () => selectType(o)));
+    // Event delegation fallback in case individual listeners fail
+    calc.addEventListener('click', (e) => {
+      const opt = e.target.closest('[data-type]');
+      if (opt) selectType(opt);
+    });
 
     function toggleDomicile() {
       state.domicile = !state.domicile;
