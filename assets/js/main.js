@@ -159,7 +159,7 @@
     }
     if (optOuverture) optOuverture.addEventListener('click', toggleOuverture);
 
-    // Géocodage réel via Nominatim (OpenStreetMap) — calcul distance depuis Scionzier
+    // Géocodage + calcul distance routière réelle via OSRM (OpenStreetMap)
     const SCIONZIER = { lat: 46.0556, lon: 6.5806 };
     let geocodeTimer = null;
 
@@ -181,18 +181,34 @@
         update();
         return;
       }
-      const url = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(query + ', Haute-Savoie, France') + '&limit=1';
-      fetch(url, { headers: { 'Accept-Language': 'fr' } })
+      // 1. Géocoder l'adresse saisie
+      const geoUrl = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(query + ', France') + '&limit=1';
+      fetch(geoUrl, { headers: { 'Accept-Language': 'fr' } })
         .then(r => r.json())
         .then(data => {
-          if (data && data[0]) {
-            const lat = parseFloat(data[0].lat);
-            const lon = parseFloat(data[0].lon);
-            state.distance = haversine(SCIONZIER.lat, SCIONZIER.lon, lat, lon);
-            if (distanceEl) distanceEl.textContent = state.distance + ' km';
-          } else {
+          if (!data || !data[0]) {
             state.distance = 0;
             if (distanceEl) distanceEl.textContent = '— km';
+            update();
+            return;
+          }
+          const lat = parseFloat(data[0].lat);
+          const lon = parseFloat(data[0].lon);
+          // 2. Calculer l'itinéraire routier réel via OSRM
+          const routeUrl = 'https://router.project-osrm.org/route/v1/driving/' + SCIONZIER.lon + ',' + SCIONZIER.lat + ';' + lon + ',' + lat + '?overview=false';
+          return fetch(routeUrl);
+        })
+        .then(r => r ? r.json() : null)
+        .then(route => {
+          if (route && route.routes && route.routes[0]) {
+            // distance en mètres -> km
+            state.distance = Math.round(route.routes[0].distance / 1000);
+            if (distanceEl) distanceEl.textContent = state.distance + ' km (route)';
+          } else {
+            // Fallback: distance à vol d'oiseau × 1.3 (correction route moyenne)
+            const straight = haversine(SCIONZIER.lat, SCIONZIER.lon, lat, lon);
+            state.distance = Math.round(straight * 1.3);
+            if (distanceEl) distanceEl.textContent = state.distance + ' km (estimé)';
           }
           update();
         })
