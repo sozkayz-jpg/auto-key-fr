@@ -396,26 +396,55 @@
   if (!calc) return;
   var state = { type: 'standard', domicile: false, distance: 0, ouverture: false, horsplage: false };
   var basePrices = { 'standard': 49, 'puce': 69, 'telecommande': 169, 'mainlibre': 199 };
-  var labels = { 'standard': 'Cle standard mecanique', 'puce': 'Cle avec puce anti-demarrage', 'telecommande': 'Cle avec telecommande', 'mainlibre': 'Cle Main Libre / Carte' };
+  var labels = { 'standard': 'Clé standard mécanique', 'puce': 'Clé avec puce anti-démarrage', 'telecommande': 'Clé avec télécommande', 'mainlibre': 'Clé Main Libre / Carte' };
+  var SCIONZIER = { lat: 46.0556, lon: 6.5806 };
+  function haversine(lat1, lon1, lat2, lon2) {
+    var R = 6371;
+    var dLat = (lat2 - lat1) * Math.PI / 180;
+    var dLon = (lon2 - lon1) * Math.PI / 180;
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1 * Math.PI/180) * Math.cos(lat2 * Math.PI/180) * Math.sin(dLon/2) * Math.sin(dLon/2);
+    return Math.round(R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)));
+  }
   function update() {
     var base = basePrices[state.type] || 49;
-    var extra = 0, travel = 0, lines = [['Cle (' + labels[state.type] + ')', base + '\u20ac']];
-    if (state.ouverture) { extra += 30; lines.push(['Ouverture de porte', '+30\u20ac']); }
-    if (state.horsplage) { extra += 50; lines.push(['Dimanche ou hors plage 9h-18h', '+50\u20ac']); }
-    if (state.domicile && state.distance > 15) { travel = Math.round((state.distance - 15) * 1.2); lines.push(['Deplacement (' + state.distance + ' km, au-dela de 15 km)', '+' + travel + '\u20ac']); }
-    else if (state.domicile) { lines.push(['Deplacement', 'Inclus']); }
+    var extra = 0, travel = 0, lines = [['Clé (' + labels[state.type] + ')', base + '€']];
+    if (state.ouverture) { extra += 30; lines.push(['Ouverture de porte', '+30€']); }
+    if (state.horsplage) { extra += 50; lines.push(['Dimanche ou hors plage 9h-18h', '+50€']); }
+    if (state.domicile && state.distance > 15) { travel = Math.round((state.distance - 15) * 1.2); lines.push(['Déplacement (' + state.distance + ' km, au-delà de 15 km)', '+' + travel + '€']); }
+    else if (state.domicile) { lines.push(['Déplacement', 'Inclus']); }
     var total = base + extra + travel;
-    var amt = calc.querySelector('[data-amount]'); if (amt) amt.textContent = total + '\u20ac';
+    var amt = calc.querySelector('[data-amount]'); if (amt) amt.textContent = total + '€';
     var bd = calc.querySelector('[data-breakdown]'); if (bd) bd.innerHTML = lines.map(function(l){return '<li><span>'+l[0]+'</span><span>'+l[1]+'</span></li>';}).join('');
+  }
+  function geocode(query) {
+    var dist = calc.querySelector('[data-distance]');
+    if (!query || query.trim().length < 3) { state.distance = 0; if (dist) dist.textContent = '0 km'; update(); return; }
+    if (dist) dist.textContent = '...';
+    var url = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(query + ', France') + '&limit=1';
+    fetch(url).then(function(r){return r.json();}).then(function(data){
+      if (!data || !data[0]) { state.distance = 0; if (dist) dist.textContent = '— km'; update(); return; }
+      var lat = parseFloat(data[0].lat), lon = parseFloat(data[0].lon);
+      var routeUrl = 'https://router.project-osrm.org/route/v1/driving/' + SCIONZIER.lon + ',' + SCIONZIER.lat + ';' + lon + ',' + lat + '?overview=false';
+      return fetch(routeUrl).then(function(r){return r.json();}).then(function(route){
+        if (route && route.routes && route.routes[0]) {
+          state.distance = Math.round(route.routes[0].distance / 1000);
+          if (dist) dist.textContent = state.distance + ' km (route)';
+        } else {
+          state.distance = Math.round(haversine(SCIONZIER.lat, SCIONZIER.lon, lat, lon) * 1.3);
+          if (dist) dist.textContent = state.distance + ' km (estimé)';
+        }
+        update();
+      });
+    }).catch(function(){ state.distance = 0; if (dist) dist.textContent = '— km'; update(); });
   }
   var optType = calc.querySelectorAll('[data-type]');
   for (var i=0; i<optType.length; i++) {
     (function(o){
       o.addEventListener('click', function(){
         for (var j=0; j<optType.length; j++) optType[j].classList.remove('selected');
-      o.classList.add('selected');
-      state.type = o.getAttribute('data-type');
-      update();
+        o.classList.add('selected');
+        state.type = o.getAttribute('data-type');
+        update();
       });
     })(optType[i]);
   }
@@ -427,6 +456,10 @@
       if (key === 'domicile') {
         var w = calc.querySelector('.calc-address-wrap');
         if (w) w.style.display = state.domicile ? 'block' : 'none';
+        if (state.domicile) {
+          var addr = calc.querySelector('#calc-address');
+          if (addr && addr.value.trim().length >= 3) geocode(addr.value.trim());
+        }
       }
       update();
     });
@@ -434,9 +467,19 @@
   bindToggle('[data-toggle="domicile"]', 'domicile');
   bindToggle('[data-toggle="ouverture"]', 'ouverture');
   bindToggle('[data-toggle="horsplage"]', 'horsplage');
+  var addr = calc.querySelector('#calc-address');
+  if (addr) {
+    var timer = null;
+    addr.addEventListener('input', function(){
+      clearTimeout(timer);
+      var v = addr.value.trim();
+      if (v.length < 3) { state.distance = 0; var d = calc.querySelector('[data-distance]'); if (d) d.textContent = '0 km'; update(); return; }
+      timer = setTimeout(function(){ geocode(v); }, 600);
+    });
+  }
   update();
 })();
 </script>
-<script src="assets/js/main.min.js?v=6"></script>
+<script src="assets/js/main.min.js?v=7"></script>
 </body>
 </html>
