@@ -80,7 +80,8 @@
       type: 'standard',
       domicile: false,
       distance: 0,
-      ouverture: false
+      ouverture: false,
+      horsplage: false
     };
     const distanceRate = 1.20; // €/km au-delà de 15km
     const freeRadius = 15;
@@ -88,6 +89,7 @@
     const optType = calc.querySelectorAll('[data-type]');
     const optDomicile = calc.querySelector('[data-toggle="domicile"]');
     const optOuverture = calc.querySelector('[data-toggle="ouverture"]');
+    const optHorsplage = calc.querySelector('[data-toggle="horsplage"]');
     const addressInput = calc.querySelector('#calc-address');
     const distanceEl = calc.querySelector('[data-distance]');
     const amountEl = calc.querySelector('[data-amount]');
@@ -112,6 +114,10 @@
       if (state.ouverture) {
         extra += 30;
         lines.push(['Ouverture de porte', '+30€']);
+      }
+      if (state.horsplage) {
+        extra += 50;
+        lines.push(['Dimanche ou hors plage 9h–18h', '+50€']);
       }
       let travel = 0;
       if (state.domicile && state.distance > freeRadius) {
@@ -158,6 +164,13 @@
       update();
     }
     if (optOuverture) optOuverture.addEventListener('click', toggleOuverture);
+
+    function toggleHorsplage() {
+      state.horsplage = !state.horsplage;
+      if (optHorsplage) optHorsplage.classList.toggle('selected', state.horsplage);
+      update();
+    }
+    if (optHorsplage) optHorsplage.addEventListener('click', toggleHorsplage);
 
     // Géocodage + calcul distance routière réelle via OSRM (OpenStreetMap)
     const SCIONZIER = { lat: 46.0556, lon: 6.5806 };
