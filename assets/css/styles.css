@@ -549,3 +549,13 @@ p { margin-bottom: 1rem; }
 .hide-desktop { display: none; }
 @media (max-width: 768px) { .hide-mobile { display: none !important; } .hide-desktop { display: block; } }
 @media print { .site-header, .floating-actions, .mobile-nav, .mobile-overlay, .cookie-banner { display: none; } body { color: #000; } }
+
+/* Zone intervention table */
+.zone-table { list-style: none; padding: 0; margin: 0; }
+.zone-row { border-top: 1px solid var(--gray-100); }
+.zone-row:first-child { border-top: 0; }
+.zone-link { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 18px; border-radius: 10px; color: var(--black); font-weight: 600; transition: all .15s ease; }
+.zone-link:hover { background: var(--blue-light); color: var(--blue-dark); transform: translateX(4px); }
+.zone-name { font-size: 0.95rem; }
+.zone-time { background: var(--blue-light); color: var(--blue-dark); padding: 5px 12px; border-radius: 999px; font-size: 0.8rem; font-weight: 700; white-space: nowrap; }
+.zone-link:hover .zone-time { background: var(--blue); color: var(--white); }
