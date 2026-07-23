@@ -1,11 +1,46 @@
-# .htaccess simplifie pour o2switch
-# Pas de rewrite - les fichiers n'ont plus d'extension .html
+# ====================================================
+# .htaccess - allo-cle-auto.fr
+# Retire .html des URLs
+# ====================================================
 
+# Forcer HTTPS
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
+
+# Redirection ancien domaine
+RewriteCond %{HTTP_HOST} ^auto-key\.fr [NC]
+RewriteRule ^(.*)$ https://www.allo-cle-auto.fr/$1 [L,R=301]
+
+# Retirer .html des URLs
+# Quand quelqu'un visite page.html, rediriger vers /page
+RewriteCond %{THE_REQUEST} \s/([^.]+)\.html [NC]
+RewriteRule ^ /%1 [L,R=301]
+
+# Quand quelqu'un visite /page (sans extension), servir page.html
+# Mais eviter les dossiers (blog, villes, etc.)
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^([^/]+)/?$ $1.html [L]
+
+# Exclure les sous-dossiers du rewrite
+RewriteRule ^blog/ - [L]
+RewriteRule ^villes/ - [L]
+RewriteRule ^marques/ - [L]
+RewriteRule ^admin/ - [L]
+RewriteRule ^api/ - [L]
+RewriteRule ^assets/ - [L]
+RewriteRule ^Images/ - [L]
+
+# Page d'erreur
 ErrorDocument 404 /404.html
 
 # Pas de listing
 Options -Indexes
 ServerSignature Off
+ServerTokens Prod
+TraceEnable Off
 
 # Headers de securite
 <IfModule mod_headers.c>
@@ -15,21 +50,22 @@ ServerSignature Off
   Header set Referrer-Policy "strict-origin-when-cross-origin"
   Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
   Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
-  Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://nominatim.openstreetmap.org https://router.project-osrm.org; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://nominatim.openstreetmap.org https://router.project-osrm.org https://calendly.com; frame-src https://calendly.com; object-src 'none'; base-uri 'self'; form-action 'self' https://calendly.com"
 </IfModule>
 
-# Compression
+# Compression GZIP
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/plain text/css text/javascript application/javascript application/json
 </IfModule>
 
-# Cache
+# Cache navigateur
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresByType text/css "access plus 1 month"
   ExpiresByType application/javascript "access plus 1 month"
   ExpiresByType image/jpeg "access plus 6 months"
   ExpiresByType image/png "access plus 6 months"
+  ExpiresByType image/gif "access plus 6 months"
   ExpiresByType image/webp "access plus 6 months"
+  ExpiresByType image/svg+xml "access plus 6 months"
   ExpiresByType font/woff2 "access plus 1 year"
 </IfModule>

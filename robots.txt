@@ -1,4 +1,26 @@
-User-agent: *
-Disallow: /mentions-legales.html
-Disallow: /politique-cookies.html
+user-agent: *
+Allow: /
+
+# Bloquer les pages admin
+Disallow: /admin/
+Disallow: /api/
+Disallow: /assets/
+Disallow: /Images/
+
+# Sitemap
 Sitemap: https://www.allo-cle-auto.fr/sitemap.xml
+
+# ============================================================================
+# Google Search Console - Verification
+# ============================================================================
+# 1. Allez sur https://search.google.com/search-console/
+# 2. Ajoutez la propriete allo-cle-auto.fr
+# 3. Choisissez la methode de verification "Balise HTML"
+# 4. Google vous donnera un code comme :
+#    <meta name="google-site-verification" content="VOTRE_CODE_ICI" />
+# 5. Ajoutez cette balise dans le <head> de TOUTES les pages
+#    OU dans un fichier include charge sur toutes les pages
+#
+# Alternative plus simple : utiliser le fichier HTML de verification
+# Placez le fichier a la racine : googleXXXXXXX.html
+# Voir assets/includes/search-console.html pour la version recommandee

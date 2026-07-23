@@ -1,0 +1,43 @@
+// ============================================================================
+// Google Analytics 4 (GA4) - Auto-Key
+// ============================================================================
+// INSTRUCTIONS :
+// 1. Creez un compte sur https://analytics.google.com
+// 2. Creez une propriete GA4 pour allo-cle-auto.fr
+// 3. Copiez votre identifiant de mesure (format G-XXXXXXXXXX)
+// 4. Remplacez G-XXXXXXXXXX ci-dessous par votre identifiant
+// 5. Renommez ce fichier en "analytics-config.js" (enlevez le .template)
+// 6. Uploadez-le sur le serveur dans /assets/js/
+// 7. Deployeez le code de suivi (voir bas de ce fichier)
+// ============================================================================
+
+// Identifiant de mesure GA4
+window.GA_MEASUREMENT_ID = 'G-XXXXXXXXXX';
+
+// Activation du mode debug (a desactiver en production)
+// window.GA_DEBUG_MODE = true;
+
+// Activation de l'envoi des pages view
+window.GA_SEND_PAGE_VIEW = true;
+
+// ============================================================================
+// Code de suivi GA4 - A inserer dans toutes les pages HTML
+// (avant la balise </head>)
+// ============================================================================
+//
+// <!-- Google Analytics -->
+// <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+// <script>
+//   window.dataLayer = window.dataLayer || [];
+//   function gtag(){dataLayer.push(arguments);}
+//   gtag('js', new Date());
+//   gtag('config', 'G-XXXXXXXXXX');
+// </script>
+// <!-- End Google Analytics -->
+//
+// Pour eviter de modifier les 332 pages HTML, vous pouvez :
+// 1. Utiliser Google Tag Manager (recommande) : https://tagmanager.google.com
+// 2. OU ajouter le code dans un script include via .htaccess
+// 3. OU utiliser le plugin "Header/Footer" du panel o2switch (si disponible)
+//
+// Voir assets/includes/analytics.html pour la version a copier
