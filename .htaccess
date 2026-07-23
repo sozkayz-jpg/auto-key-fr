@@ -1,118 +1,61 @@
 RewriteEngine On
 
-# === Redirections domaine et HTTPS ===
-RewriteCond %{HTTP_HOST} ^auto-key\.fr [NC]
-RewriteRule ^(.*)$ https://www.allo-cle-auto.fr/$1 [L,R=301]
-
+# HTTPS
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
 
-# === Retirer l'extension .html des URLs ===
+# Retirer .html des URLs (seulement pour les fichiers, pas les dossiers)
 RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
 RewriteRule ^ /%1 [L,R=301]
 
+# Ne s'applique qu'aux fichiers .html a la racine qui n'existent pas sans extension
 RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^([^/]+)/?$ /$1.html [L]
 
-# === API PHP contact (pas de rewrite) ===
+# API
 RewriteRule ^api/ - [L]
 
 ErrorDocument 404 /404.html
 
-# === Protection des fichiers sensibles ===
-<FilesMatch "^(config\.json|admin\.log|admin\.users|\.env|\.gitignore|README\.md|package\.json|package-lock\.json)$">
-  Order allow,deny
-  Deny from all
-</FilesMatch>
-
-# === Bloquer acces aux repertoires sensibles ===
-<IfModule mod_rewrite.c>
-  RewriteRule ^(config\.json|admin\.log|admin\.users|\.env|\.git/) - [F,L]
-</IfModule>
-
-# === Bloquer PHP dans uploads ===
-<Directory "assets/img/">
-  <FilesMatch "\.(php|phtml|phar|pl|py|sh|cgi)$">
-    Order allow,deny
-    Deny from all
-  </FilesMatch>
-  php_flag engine off
-</Directory>
-
-# === Compression GZIP ===
-<IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript
-  AddOutputFilterByType DEFLATE application/javascript application/x-javascript application/rss+xml application/xml application/json
-  AddOutputFilterByType DEFLATE image/svg+xml font/woff font/woff2 application/font-woff application/font-woff2
-</IfModule>
-
-# === Cache navigateur ===
+# Cache
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresByType text/html "access plus 1 hour"
   ExpiresByType text/css "access plus 1 month"
   ExpiresByType application/javascript "access plus 1 month"
-  ExpiresByType text/javascript "access plus 1 month"
   ExpiresByType image/jpeg "access plus 6 months"
   ExpiresByType image/png "access plus 6 months"
-  ExpiresByType image/gif "access plus 6 months"
   ExpiresByType image/webp "access plus 6 months"
   ExpiresByType image/svg+xml "access plus 6 months"
-  ExpiresByType image/x-icon "access plus 1 year"
-  ExpiresByType font/woff "access plus 1 year"
   ExpiresByType font/woff2 "access plus 1 year"
-  ExpiresByType application/pdf "access plus 1 month"
 </IfModule>
 
-# === Headers de sécurité renforcés ===
+# Compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json
+</IfModule>
+
+# Security headers
 <IfModule mod_headers.c>
-  # Anti-sniffing
   Header set X-Content-Type-Options "nosniff"
-  # Anti-clickjacking - bloque iframes externes
   Header set X-Frame-Options "SAMEORIGIN"
-  # Anti-XSS navigateur (legacy)
   Header set X-XSS-Protection "1; mode=block"
-  # Referrer policy
   Header set Referrer-Policy "strict-origin-when-cross-origin"
-  # Permissions policy
-  Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
-  # HSTS - forcer HTTPS pour 1 an
-  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
-  # Content Security Policy
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
   Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://nominatim.openstreetmap.org https://router.project-osrm.org; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://nominatim.openstreetmap.org https://router.project-osrm.org https://calendly.com; frame-src https://calendly.com; object-src 'none'; base-uri 'self'; form-action 'self' https://calendly.com"
 </IfModule>
 
-# === Désactiver le sniffing de contenu PHP ===
-<IfModule mod_php.c>
-  Header set X-Content-Type-Options "nosniff"
-  # Désactiver l'exposition de PHP
-  php_flag expose_php off
+# Cache HTML
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|css|js)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+  <FilesMatch "\.(jpg|jpeg|png|gif|webp|svg|woff|woff2)$">
+    Header set Cache-Control "public, max-age=15552000"
+  </FilesMatch>
 </IfModule>
 
-# === Cache HTML ===
-<FilesMatch "\.(html|css|js)$">
-  Header set Cache-Control "no-cache, must-revalidate"
-</FilesMatch>
-
-# === Cache images/fonts ===
-<FilesMatch "\.(jpg|jpeg|png|gif|webp|svg|ico|woff|woff2)$">
-  Header set Cache-Control "public, max-age=15552000"
-</FilesMatch>
-
-# === Allow robots/sitemap ===
-<Files robots.txt>
-  Allow from all
-  Satisfy any
-</Files>
-
-<Files sitemap.xml>
-  Allow from all
-  Satisfy any
-</Files>
-
-# === Options de securite serveur ===
 Options -Indexes
 ServerSignature Off
-ServerTokens Prod
-TraceEnable Off
