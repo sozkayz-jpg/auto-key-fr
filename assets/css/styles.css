@@ -126,7 +126,7 @@ p { margin-bottom: 1rem; }
   display: flex; align-items: center; justify-content: space-between; gap: 24px;
 }
 .logo { flex-shrink: 0; }
-.logo img, .logo svg { height: 60px; width: auto; max-width: 240px; }
+.logo img, .logo svg { height: 75px; width: auto; max-width: 200px; }
 
 .nav { display: flex; align-items: center; gap: 4px; }
 .nav a {
