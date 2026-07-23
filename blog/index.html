@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://www.allo-cle-auto.fr/blog">
 <link rel="stylesheet" href="../assets/css/fonts.css">
 <link rel="stylesheet" href="../assets/css/styles.min.css">
+  <link rel="stylesheet" href="assets/css/preloader.css">
 
 <!-- ANALYTICS_PLACEHOLDER: Google Analytics a inserer ici.
      Voir assets/includes/analytics.html -->
@@ -15,6 +16,28 @@
      Voir assets/includes/search-console.html -->
 </head>
 <body>
+
+<!-- Preloader -->
+<div id="preloader" class="preloader" role="status" aria-label="Recherche de technicien">
+  <div class="preloader-inner">
+    <div class="preloader-title">Recherche du technicien</div>
+    <div class="preloader-visual">
+      <div class="ring ring-1"></div>
+      <div class="ring ring-2"></div>
+      <div class="ring ring-3"></div>
+      <div class="user-dot"><div class="user-dot-inner"></div></div>
+      <div class="tech-dot" aria-label="Technicien"></div>
+      <svg class="connector" viewBox="0 0 200 200" aria-hidden="true">
+        <line class="connector-line" x1="100" y1="100" x2="160" y2="50"/>
+      </svg>
+    </div>
+    <p class="preloader-label">Localisation en cours...</p>
+    <div class="preloader-progress">
+      <div class="preloader-progress-bar"></div>
+    </div>
+    <p class="preloader-distance"></p>
+  </div>
+</div>
 <header class="site-header">
   <div class="header-inner">
     <a href=".." class="logo"><img src="../assets/img/logo-new.png" alt="Allo Cl&eacute; Auto" width="200" height="60"></a>

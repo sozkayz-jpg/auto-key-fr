@@ -1,0 +1,198 @@
+/* Preloader amélioré : recherche de technicien */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+.preloader.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.preloader-inner {
+  text-align: center;
+  max-width: 420px;
+  padding: 24px;
+}
+
+.preloader-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--black);
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+.preloader-visual {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 28px;
+}
+
+/* Ondes radar */
+.preloader-visual .ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--blue);
+  animation: radar 2.4s ease-out infinite;
+  opacity: 0;
+}
+.preloader-visual .ring-1 { animation-delay: 0s; }
+.preloader-visual .ring-2 { animation-delay: 0.8s; }
+.preloader-visual .ring-3 { animation-delay: 1.6s; }
+
+@keyframes radar {
+  0% { transform: scale(0.2); opacity: 0.8; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+/* Centre : utilisateur (Scionzier) */
+.preloader-visual .user-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 0 0 6px rgba(89, 152, 209, 0.2);
+  z-index: 3;
+}
+.preloader-visual .user-dot::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--white);
+}
+
+/* Voiture du technicien */
+.preloader-visual .tech-dot {
+  position: absolute;
+  top: 25%;
+  left: 75%;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  z-index: 2;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.4s ease, top 1.5s ease, left 1.5s ease;
+}
+.preloader-visual .tech-dot.visible {
+  opacity: 1;
+}
+.preloader-visual .tech-dot.arrived {
+  top: 50%;
+  left: 50%;
+}
+
+/* Ligne de connexion */
+.preloader-visual .connector {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.preloader-visual .connector-line {
+  stroke: var(--blue);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  transition: stroke-dashoffset 1.2s ease;
+}
+.preloader-visual .connector-line.drawn {
+  stroke-dashoffset: 0;
+}
+
+/* Pin de destination */
+.preloader-visual .pin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  background: var(--blue-dark);
+  border-radius: 50% 50% 50% 0;
+  transform: translate(-50%, -100%) rotate(-45deg);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.preloader-visual .pin.visible {
+  opacity: 1;
+  animation: pinDrop 0.6s ease-out;
+}
+@keyframes pinDrop {
+  0% { transform: translate(-50%, -300%) rotate(-45deg); }
+  60% { transform: translate(-50%, -90%) rotate(-45deg); }
+  80% { transform: translate(-50%, -110%) rotate(-45deg); }
+  100% { transform: translate(-50%, -100%) rotate(-45deg); }
+}
+
+/* Label de statut */
+.preloader-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--gray-500);
+  min-height: 1.5em;
+  transition: color 0.3s ease;
+}
+.preloader-label.success {
+  color: var(--blue-dark);
+}
+.preloader-label .check {
+  display: inline-block;
+  margin-right: 4px;
+}
+
+/* Barre de progression */
+.preloader-progress {
+  width: 180px;
+  height: 3px;
+  background: var(--gray-200);
+  border-radius: 2px;
+  margin: 12px auto 0;
+  overflow: hidden;
+}
+.preloader-progress-bar {
+  height: 100%;
+  background: var(--blue);
+  border-radius: 2px;
+  width: 0;
+  animation: progress 2.8s ease-out forwards;
+}
+@keyframes progress {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+
+/* Distance */
+.preloader-distance {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: var(--gray-400);
+  min-height: 1.2em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader { display: none !important; }
+}

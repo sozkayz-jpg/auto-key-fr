@@ -4,6 +4,108 @@
 (function () {
   'use strict';
 
+  /* ---- Preloader ---- */
+  (function() {
+    var preloader = document.getElementById('preloader');
+    if (!preloader) return;
+
+    // Skip if already seen in this session
+    if (sessionStorage.getItem('preloaderSeen')) {
+      preloader.style.display = 'none';
+      return;
+    }
+
+    // Skip if user prefers reduced motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      preloader.style.display = 'none';
+      return;
+    }
+
+    // Skip on slow connection (effective type check)
+    if ('connection' in navigator && navigator.connection) {
+      var ct = navigator.connection.effectiveType;
+      if (ct && (ct === 'slow-2g' || ct === '2g')) {
+        preloader.style.display = 'none';
+        return;
+      }
+    }
+
+    var label = document.getElementById('preloader-label');
+    var techDot = document.getElementById('tech-dot');
+    var connLine = document.getElementById('conn-line');
+    var timer;
+    var skipped = false;
+
+    function hidePreloader() {
+      if (skipped) return;
+      skipped = true;
+      clearTimeout(timer);
+      preloader.classList.add('hidden');
+      setTimeout(function() { preloader.style.display = 'none'; }, 500);
+      try { sessionStorage.setItem('preloaderSeen', '1'); } catch(e) {}
+    }
+
+    function skipEarly() {
+      hidePreloader();
+    }
+
+    // Skip if page takes too long to load (user waiting)
+    // Detect if page is already fully loaded
+    if (document.readyState === 'complete') {
+      skipEarly();
+      return;
+    }
+
+    var phases = [
+      { time: 0, text: 'Localisation en cours\u2026' },
+      { time: 900, text: 'Recherche du technicien le plus proche\u2026' },
+      { time: 1800, text: 'Un technicien est disponible', showTech: true },
+      { time: 2600, text: 'Un technicien est disponible' }
+    ];
+
+    var totalDuration = 3000;
+
+    function runPhase(index) {
+      if (skipped) return;
+      var phase = phases[index];
+      if (!phase) {
+        hidePreloader();
+        return;
+      }
+      if (phase.text && label) label.textContent = phase.text;
+      if (phase.showTech && techDot) techDot.classList.add('visible');
+      if (phase.showTech && connLine) connLine.classList.add('drawn');
+      var nextPhase = phases[index + 1];
+      var delay = nextPhase ? (nextPhase.time - phase.time) : (totalDuration - phase.time);
+      timer = setTimeout(function() { runPhase(index + 1); }, delay);
+    }
+
+    // Start preloader on DOM ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() {
+        if (skipped) return;
+        runPhase(0);
+        // Safety: hide after totalDuration + 500ms regardless
+        setTimeout(function() {
+          if (!skipped) hidePreloader();
+        }, totalDuration + 500);
+      });
+    } else {
+      runPhase(0);
+      setTimeout(function() {
+        if (!skipped) hidePreloader();
+      }, totalDuration + 500);
+    }
+
+    // Hide on window load (images etc) if preloader still showing
+    window.addEventListener('load', function() {
+      if (!skipped) {
+        // Shorten remaining time
+        setTimeout(function() { hidePreloader(); }, 400);
+      }
+    });
+  })();
+
   /* ---- Sticky header ---- */
   const header = document.querySelector('.site-header');
   if (header) {

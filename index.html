@@ -25,6 +25,7 @@
 <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
 <link rel="stylesheet" href="assets/css/fonts.css">
 <link rel="stylesheet" href="assets/css/styles.min.css">
+  <link rel="stylesheet" href="assets/css/preloader.css">
 
 <!-- Schema.org : LocalBusiness / AutoRepair -->
 <script type="application/ld+json">
@@ -131,92 +132,27 @@
 </head>
 <body>
 
-<header class="site-header">
-  <div class="header-inner">
-    <a href="index.html" class="logo">
-      <img src="assets/img/logo-new.png" alt="Allo Clé Auto" width="200" height="60">
-    </a>
-    <nav class="nav">
-      <a href="index.html" class="active">Accueil</a>
-      <div class="has-dropdown">
-        <a href="services.html">Services ▾</a>
-        <div class="dropdown">
-          <a href="services.html#duplication">Double de clé</a>
-          <a href="cle-perdue-haute-savoie.html">Clé perdue sans double</a>
-          <a href="reparation-cle-voiture.html">Réparation de clé</a>
-          <a href="services.html#diagnostic">Diagnostic électronique</a>
-          <a href="services.html#multimedia">Multimédia auto</a>
-          <a href="marques">Marques</a>
-        </div>
-      </div>
-      <a href="tarifs.html">Tarifs</a>
-      <div class="has-dropdown">
-        <a href="zone-intervention.html">Zones ▾</a>
-        <div class="dropdown">
-          <a href="villes/annecy.html">Annecy</a>
-          <a href="villes/annemasse.html">Annemasse</a>
-          <a href="villes/thonon-les-bains.html">Thonon-les-Bains</a>
-          <a href="villes/cluses.html">Cluses</a>
-          <a href="villes/sallanches.html">Sallanches</a>
-          <a href="villes/chambery.html">Chambéry (73)</a>
-          <a href="zone-intervention.html">Toutes les villes</a>
-        </div>
-      </div>
-      <a href="blog">Conseils</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-    <div class="header-cta">
-      <a href="tel:+33746571703" class="header-phone">
-        <span class="phone-icon">☎</span>
-        07 46 57 17 03
-      </a>
-      <a href="tarifs.html" class="btn btn-blue">Devis gratuit</a>
+<!-- Preloader -->
+<div id="preloader" class="preloader" role="status" aria-label="Recherche de technicien">
+  <div class="preloader-inner">
+    <div class="preloader-title">Recherche du technicien</div>
+    <div class="preloader-visual">
+      <div class="ring ring-1"></div>
+      <div class="ring ring-2"></div>
+      <div class="ring ring-3"></div>
+      <div class="user-dot"><div class="user-dot-inner"></div></div>
+      <div class="tech-dot" aria-label="Technicien"></div>
+      <svg class="connector" viewBox="0 0 200 200" aria-hidden="true">
+        <line class="connector-line" x1="100" y1="100" x2="160" y2="50"/>
+      </svg>
     </div>
-    <button class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <p class="preloader-label">Localisation en cours...</p>
+    <div class="preloader-progress">
+      <div class="preloader-progress-bar"></div>
+    </div>
+    <p class="preloader-distance"></p>
   </div>
-</header>
-
-<aside class="mobile-nav">
-  <a href="index.html">Accueil</a>
-  <a href="services.html">Services</a>
-  <a href="reparation-cle-voiture.html">Réparation de clé</a>
-  <a href="marques">Marques</a>
-  <a href="tarifs.html">Tarifs</a>
-  <a href="zone-intervention.html">Zones d'intervention</a>
-  <div class="sub">
-    <a href="villes/annecy.html">— Annecy</a>
-    <a href="villes/annemasse.html">— Annemasse</a>
-    <a href="villes/thonon-les-bains.html">— Thonon-les-Bains</a>
-    <a href="villes/cluses.html">— Cluses</a>
-    <a href="villes/sallanches.html">— Sallanches</a>
-    <a href="villes/chambery.html">— Chambéry (73)</a>
-  </div>
-  <a href="blog">Conseils</a>
-  <a href="contact.html">Contact</a>
-  <div class="cta-row">
-    <a href="https://calendly.com/auto-key/auto-key" target="_blank" rel="noopener" class="btn btn-blue btn-block">📅 Prendre rendez-vous maintenant</a>
-    <a href="tarifs.html" class="btn btn-outline btn-block">Calculer mon tarif</a>
-  </div>
-</aside>
-<div class="mobile-overlay"></div>
-
-<!-- Hero -->
-<section class="hero">
-  <div class="container">
-    <div class="hero-grid">
-      <div class="reveal">
-        <span class="badge">★ N°1 du dépannage clé auto en Haute-Savoie</span>
-        <h1>Double de clé voiture<br>en <span class="blue">1 heure</span>, à domicile.</h1>
-        <p class="lead">Perte, vol ou simple double : nos techniciens mobiles fabriquent et programment votre clé sur place. Service disponible <strong>Mar–Sam</strong> en Haute-Savoie.</p>
-        <div class="hero-cta">
-          <a href="tarifs.html" class="btn btn-blue btn-lg">Calculer mon tarif en 3s</a>
-          <a href="tel:+33746571703" class="btn btn-outline btn-lg">☎ 07 46 57 17 03</a>
-        </div>
-        <div class="hero-stats">
-          <div><div class="stat-value">+850</div><div class="stat-label">Clés fabriquées / an</div></div>
-          <div><div class="stat-value">&lt; 1h</div><div class="stat-label">Délai d'intervention</div></div>
-          <div><div class="stat-value">5/5 ★</div><div class="stat-label"><a href="https://www.google.com/search?q=Auto-Key+Scionzier" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">127 avis Google vérifiés</a></div></div>
-        </div>
+</div>
       </div>
       <div class="reveal">
         <div class="hero-visual">
@@ -614,6 +550,7 @@
   <a href="https://wa.me/33746571703" class="floating-btn wa" aria-label="WhatsApp">💬</a>
 </div>
 
-<script src="assets/js/main.min.js?v=5"></script>
+<script src="assets/js/preloader.min.js"></script>
+  <script src="assets/js/main.min.js?v=5"></script>
 </body>
 </html>
