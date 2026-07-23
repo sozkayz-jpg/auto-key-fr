@@ -1,48 +1,21 @@
-# Protection du dossier admin
-
-# Bloquer l'acces direct aux fichiers sensibles (sauf admin.php et generate-password.php)
+# Protection admin
 <IfModule mod_authz_core.c>
-  Require all denied
-  <Files "admin.php">
-    Require all granted
-  </Files>
-  <Files "generate-password.php">
-    Require all granted
-  </Files>
-  <Files "login.html">
-    Require all granted
-  </Files>
-  <Files "dashboard.html">
-    Require all granted
-  </Files>
+  Require all granted
 </IfModule>
-
-# Syntaxe Apache 2.4 alternative
 <IfModule !mod_authz_core.c>
   Order allow,deny
-  Deny from all
-  <Files "admin.php">
-    Allow from all
-  </Files>
-  <Files "generate-password.php">
-    Allow from all
-  </Files>
-  <Files "login.html">
-    Allow from all
-  </Files>
-  <Files "dashboard.html">
-    Allow from all
-  </Files>
+  Allow from all
 </IfModule>
 
-# Bloquer l'acces aux fichiers de configuration
-<FilesMatch "\.(json|log|sql|env)$">
-  Require all denied
+# Bloquer acces aux fichiers de config/logs
+<FilesMatch "\.(json|log|sql|env|bak)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Deny from all
+  </IfModule>
 </FilesMatch>
 
-# Bloquer le dossier uploads (gere par PHP)
-RewriteEngine On
-RewriteRule ^uploads/ - [F,L]
-
-# Pas de listing
+# Bloquer listing dossier
 Options -Indexes

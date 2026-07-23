@@ -97,9 +97,9 @@ p { margin-bottom: 1rem; }
 .btn-white { background: var(--white); color: var(--black); }
 .btn-white:hover { background: var(--gray-100); }
 .btn-ghost {
-  background: transparent; color: var(--white); border-color: rgba(255,255,255,.4);
+  background: var(--white); color: var(--black); border-color: var(--gray-300);
 }
-.btn-ghost:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.7); }
+.btn-ghost:hover { background: var(--gray-50); border-color: var(--black); }
 .btn-lg { padding: 16px 32px; font-size: 1rem; }
 .btn-block { width: 100%; }
 
