@@ -24,7 +24,7 @@ if (!$nom || !$tel || !$message) {
     exit;
 }
 
-$to = 'contact@auto-key.fr';
+$to = 'contact@allo-cle-auto.fr';
 $sujet = 'Demande de devis - ' . $nom;
 $corps = "Nom : $nom
 Téléphone : $tel
@@ -42,8 +42,10 @@ Message :
 $message
 ";
 
-$headers = "From: $to
-Reply-To: " . ($email ?: $to) . "
+$headers = "From: $to
+
+Reply-To: " . ($email ?: $to) . "
+
 Content-Type: text/plain; charset=UTF-8";
 
 if (mail($to, $sujet, $corps, $headers)) {
