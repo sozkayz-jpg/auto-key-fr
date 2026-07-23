@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin Auto-Key — Tableau de bord</title>
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<style>
+:root {
+  --c-primary: #000000;
+  --c-light: #5998D1;
+  --c-dark: #000000;
+  --c-bg: #f4f7fb;
+  --c-border: #E1E8F0;
+  --c-muted: #5A6B82;
+  --c-accent-soft: rgba(89,152,209,.12);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--c-bg); color: #1E2A3A; min-height: 100vh; }
+.header { background: #fff; border-bottom: 1px solid var(--c-border); padding: 18px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; }
+.header .logo { display: flex; align-items: center; gap: 12px; font-family: 'Inter', Arial, sans-serif; font-weight: 700; font-size: 1.2rem; color: #000; }
+.header .logo img { display: block; height: 36px; width: auto; }
+.header-right { display: flex; gap: 12px; align-items: center; }
+.btn-logout { padding: 8px 16px; border-radius: 999px; background: #FEE2E2; color: #DC2626; font-weight: 600; text-decoration: none; font-size: .85rem; }
+.btn-logout:hover { background: #FECACA; }
+.container { max-width: 1200px; margin: 0 auto; padding: 30px 24px; }
+.tabs { display: flex; gap: 4px; margin-bottom: 24px; background: #fff; padding: 6px; border-radius: 999px; width: fit-content; box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+.tab { padding: 10px 22px; border-radius: 999px; cursor: pointer; font-weight: 600; font-size: .92rem; color: var(--c-muted); transition: all .15s; border: 0; background: none; }
+.tab.active { background: #000000; color: #fff; }
+.tab:hover:not(.active) { background: var(--c-accent-soft); color: #5998D1; }
+.panel { display: none; }
+.panel.active { display: block; }
+.card { background: #fff; border-radius: 16px; padding: 24px; border: 1px solid var(--c-border); margin-bottom: 20px; }
+.card h2 { font-family: 'Inter', Arial, sans-serif; font-size: 1.15rem; margin-bottom: 16px; color: #000; font-weight: 700; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+.img-card { border: 2px solid var(--c-border); border-radius: 12px; overflow: hidden; transition: all .15s; background: #fff; }
+.img-card:hover { border-color: #000000; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.12); }
+.img-card .img-wrap { aspect-ratio: 4/3; background: var(--c-bg); display: grid; place-items: center; overflow: hidden; }
+.img-card .img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.img-card .body { padding: 14px; }
+.img-card .name { font-weight: 600; font-size: .85rem; margin-bottom: 4px; word-break: break-all; color: #000; }
+.img-card .meta { font-size: .78rem; color: var(--c-muted); margin-bottom: 8px; }
+.img-card .badges { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 10px; }
+.badge { display: inline-block; padding: 3px 8px; border-radius: 999px; font-size: .68rem; font-weight: 600; background: var(--c-accent-soft); color: #3072AD; }
+.badge.used { background: #DCFCE7; color: #16A34A; }
+.img-card .actions { display: flex; gap: 6px; }
+.btn-small { padding: 6px 10px; border-radius: 6px; font-size: .78rem; font-weight: 600; cursor: pointer; border: 1px solid var(--c-border); background: #fff; color: #1E2A3A; transition: all .15s; }
+.btn-small:hover { border-color: #000000; color: #000000; }
+.btn-small.danger { color: #DC2626; }
+.btn-small.danger:hover { border-color: #DC2626; background: #FEE2E2; }
+.drop-zone { border: 2px dashed var(--c-border); border-radius: 16px; padding: 40px; text-align: center; cursor: pointer; transition: all .15s; background: #fff; margin-bottom: 20px; }
+.drop-zone:hover, .drop-zone.dragover { border-color: #000000; background: var(--c-accent-soft); }
+.drop-zone .icon { font-size: 2.5rem; color: #5998D1; margin-bottom: 10px; }
+.drop-zone strong { color: #000000; }
+.progress { height: 6px; background: var(--c-border); border-radius: 999px; overflow: hidden; margin-top: 12px; display: none; }
+.progress.show { display: block; }
+.progress .bar { height: 100%; background: linear-gradient(90deg, #000000, #5998D1); width: 0; transition: width .2s; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.form-field label { display: block; font-weight: 600; font-size: .85rem; margin-bottom: 6px; color: #000; }
+.form-field input, .form-field select { width: 100%; padding: 10px 12px; border: 2px solid var(--c-border); border-radius: 8px; font-size: .95rem; }
+.form-field input:focus, .form-field select:focus { outline: none; border-color: #5998D1; }
+.btn-save { padding: 12px 28px; border-radius: 999px; background: #000000; color: #fff; font-weight: 600; border: 0; cursor: pointer; font-size: .95rem; }
+.btn-save:hover { background: #5998D1; }
+.toast { position: fixed; bottom: 24px; right: 24px; padding: 14px 22px; border-radius: 12px; background: #16A34A; color: #fff; font-weight: 600; box-shadow: 0 8px 24px rgba(0,0,0,.2); opacity: 0; transform: translateY(20px); transition: all .25s; z-index: 100; }
+.toast.show { opacity: 1; transform: translateY(0); }
+.toast.error { background: #DC2626; }
+.assign-row { display: flex; align-items: center; gap: 12px; padding: 12px; border: 1px solid var(--c-border); border-radius: 10px; margin-bottom: 8px; }
+.assign-row .label { flex: 0 0 180px; font-weight: 600; font-size: .9rem; color: #000; }
+.assign-row select { flex: 1; padding: 8px 10px; border: 2px solid var(--c-border); border-radius: 8px; }
+.assign-row .preview { width: 48px; height: 48px; border-radius: 8px; overflow: hidden; flex-shrink: 0; }
+.assign-row .preview img { width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 700px) { .form-row { grid-template-columns: 1fr; } .assign-row { flex-wrap: wrap; } .assign-row .label { flex: 1 1 100%; } }
+</style>
+</head>
+<body>
+<div class="header">
+  <a href="../index" class="logo">
+    <img src="../assets/img/logo-new.png" alt="Allo Clé Auto" width="140" height="38">
+    <span>Admin</span>
+  </a>
+  <div class="header-right">
+    <a href="../index" target="_blank" style="font-size:.85rem;color:#5998D1;font-weight:600;text-decoration:none">Voir le site →</a>
+    <a href="admin.php?action=logout" class="btn-logout">Déconnexion</a>
+  </div>
+</div>
+
+<div class="container">
+  <div class="tabs">
+    <button class="tab active" data-tab="images">🖼️ Images</button>
+    <button class="tab" data-tab="assign">⚡ Assignations</button>
+    <button class="tab" data-tab="settings">⚙️ Paramètres</button>
+  </div>
+
+  <!-- Panel Images -->
+  <div class="panel active" id="panel-images">
+    <div class="drop-zone" id="drop">
+      <div class="icon">⬆️</div>
+      <p><strong>Glissez une image ici</strong> ou cliquez pour sélectionner</p>
+      <p style="font-size:.78rem;margin-top:6px">JPG, PNG, WebP, SVG · Max 5 MB</p>
+      <input type="file" id="file-input" accept="image/jpeg,image/png,image/webp,image/gif,image/svg+xml" style="display:none">
+      <div class="progress" id="progress"><div class="bar" id="bar"></div></div>
+    </div>
+
+    <div class="card">
+      <h2>Bibliothèque d'images (<span id="count">0</span>)</h2>
+      <div class="grid" id="gallery"></div>
+    </div>
+  </div>
+
+  <!-- Panel Assignations -->
+  <div class="panel" id="panel-assign">
+    <div class="card">
+      <h2>Assigner les images aux emplacements</h2>
+      <p style="color:var(--c-muted);margin-bottom:20px;font-size:.9rem">Sélectionnez quelle image utiliser pour chaque emplacement du site. Enregistrer pour appliquer immédiatement.</p>
+      <div id="assign-list"></div>
+      <button class="btn-save" id="save-assign" style="margin-top:16px">Enregistrer les assignations</button>
+    </div>
+  </div>
+
+  <!-- Panel Paramètres -->
+  <div class="panel" id="panel-settings">
+    <div class="card">
+      <h2>Paramètres du site</h2>
+      <div class="form-row">
+        <div class="form-field"><label>Nom du site</label><input id="cfg-site_name" type="text"></div>
+        <div class="form-field"><label>Téléphone</label><input id="cfg-phone" type="text"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-field"><label>Email</label><input id="cfg-email" type="text"></div>
+        <div class="form-field"><label>Horaires</label><input id="cfg-hours" type="text"></div>
+      </div>
+      <div class="form-field" style="margin-bottom:16px"><label>Adresse</label><input id="cfg-address" type="text"></div>
+      <button class="btn-save" id="save-settings">Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API = 'admin.php';
+let allImages = [];
+let config = {};
+
+function toast(msg, isError = false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (isError ? ' error' : '');
+  setTimeout(() => t.className = 'toast', 3000);
+}
+
+async function loadImages() {
+  const r = await fetch(API + '?action=list');
+  const data = await r.json();
+  allImages = data.images;
+  config = data.config;
+  renderGallery();
+  renderAssign();
+  renderSettings();
+}
+
+function renderGallery() {
+  document.getElementById('count').textContent = allImages.length;
+  const html = allImages.map(img => {
+    const badges = img.used_as.map(u => `<span class="badge used">${u}</span>`).join('');
+    return `<div class="img-card">
+      <div class="img-wrap"><img src="${img.url}" loading="lazy" alt="${img.name}"></div>
+      <div class="body">
+        <div class="name">${img.name}</div>
+        <div class="meta">${img.size_kb} KB · ${img.modified}</div>
+        <div class="badges">${badges}</div>
+        <div class="actions">
+          <button class="btn-small" onclick="copyUrl('${img.url}')">Copier URL</button>
+          ${img.used_as.length === 0 ? `<button class="btn-small danger" onclick="del('${img.name}')">Supprimer</button>` : ''}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('gallery').innerHTML = html;
+}
+
+function copyUrl(url) {
+  navigator.clipboard.writeText(url.replace('../', 'https://www.allo-cle-auto.fr/'));
+  toast('URL copiée');
+}
+
+async function del(name) {
+  if (!confirm('Supprimer cette image ?')) return;
+  const r = await fetch(API + '?action=delete', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': getCSRF() }, body: JSON.stringify({ name }) });
+  const data = await r.json();
+  if (r.ok) { toast('Image supprimée'); loadImages(); }
+  else toast(data.error || 'Erreur', true);
+}
+
+function renderAssign() {
+  const roles = [
+    { key: 'hero_image', label: 'Hero accueil (800×600)' },
+    { key: 'og_image', label: 'Open Graph (1200×630)' },
+    { key: 'logo', label: 'Logo du site' },
+    { key: 'service_duplication', label: 'Service : Duplication' },
+    { key: 'service_perdue', label: 'Service : Clé perdue' },
+    { key: 'service_reparation', label: 'Service : Réparation' },
+    { key: 'service_diagnostic', label: 'Service : Diagnostic' },
+    { key: 'service_multimedia', label: 'Service : Multimédia' },
+    { key: 'service_urgence', label: 'Service : Urgence' },
+  ];
+  const html = roles.map(role => {
+    const current = getConfigValue(role.key);
+    const options = allImages.map(img => `<option value="${img.name}" ${img.name === current ? 'selected' : ''}>${img.name}</option>`).join('');
+    const preview = current ? `<div class="preview"><img src="../assets/img/${current}" alt=""></div>` : '<div class="preview"></div>';
+    return `<div class="assign-row" data-role="${role.key}">
+      ${preview}
+      <div class="label">${role.label}</div>
+      <select data-role="${role.key}"><option value="">— Aucune —</option>${options}</select>
+    </div>`;
+  }).join('');
+  document.getElementById('assign-list').innerHTML = html;
+}
+
+function getConfigValue(path) {
+  if (path.startsWith('service_')) {
+    const k = path.replace('service_', '');
+    return config.services && config.services[k] ? config.services[k] : '';
+  }
+  return config[path] || '';
+}
+
+async function saveAssign() {
+  const selects = document.querySelectorAll('#assign-list select');
+  let anyChange = false;
+  for (const sel of selects) {
+    const role = sel.dataset.role;
+    const image = sel.value;
+    if (image && image !== getConfigValue(role)) {
+      await fetch(API + '?action=assign', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': getCSRF() }, body: JSON.stringify({ role, image }) });
+      anyChange = true;
+    }
+  }
+  if (anyChange) { toast('Assignations enregistrées ✓'); loadImages(); }
+  else toast('Aucun changement');
+}
+
+function renderSettings() {
+  document.getElementById('cfg-site_name').value = config.site_name || '';
+  document.getElementById('cfg-phone').value = config.phone || '';
+  document.getElementById('cfg-email').value = config.email || '';
+  document.getElementById('cfg-address').value = config.address || '';
+  document.getElementById('cfg-hours').value = config.hours || '';
+}
+
+async function saveSettings() {
+  const body = {
+    site_name: document.getElementById('cfg-site_name').value,
+    phone: document.getElementById('cfg-phone').value,
+    email: document.getElementById('cfg-email').value,
+    address: document.getElementById('cfg-address').value,
+    hours: document.getElementById('cfg-hours').value,
+  };
+  const r = await fetch(API + '?action=config', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': getCSRF() }, body: JSON.stringify(body) });
+  if (r.ok) toast('Paramètres enregistrés ✓');
+  else toast('Erreur', true);
+}
+
+// Upload
+const drop = document.getElementById('drop');
+const fileInput = document.getElementById('file-input');
+const progress = document.getElementById('progress');
+const bar = document.getElementById('bar');
+
+drop.addEventListener('click', () => fileInput.click());
+drop.addEventListener('dragover', (e) => { e.preventDefault(); drop.classList.add('dragover'); });
+drop.addEventListener('dragleave', () => drop.classList.remove('dragover'));
+drop.addEventListener('drop', (e) => { e.preventDefault(); drop.classList.remove('dragover'); handleFiles(e.dataTransfer.files); });
+fileInput.addEventListener('change', () => handleFiles(fileInput.files));
+
+function handleFiles(files) {
+  if (!files.length) return;
+  for (const file of files) uploadFile(file);
+}
+
+function uploadFile(file) {
+  const fd = new FormData();
+  fd.append('file', file);
+  const xhr = new XMLHttpRequest();
+  progress.classList.add('show');
+  bar.style.width = '0%';
+  xhr.upload.addEventListener('progress', (e) => {
+    if (e.lengthComputable) bar.style.width = (e.loaded / e.total * 100) + '%';
+  });
+  xhr.addEventListener('load', () => {
+    progress.classList.remove('show');
+    const data = JSON.parse(xhr.responseText);
+    if (xhr.status === 200 && data.success) {
+      toast('Image ajoutée ✓');
+      loadImages();
+    } else {
+      toast(data.error || 'Erreur upload', true);
+    }
+  });
+  xhr.addEventListener('error', () => { progress.classList.remove('show'); toast('Erreur réseau', true); });
+  xhr.open('POST', API + '?action=upload');
+  xhr.send(fd);
+}
+
+// Tabs
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+  });
+});
+
+document.getElementById('save-assign').addEventListener('click', saveAssign);
+document.getElementById('save-settings').addEventListener('click', saveSettings);
+
+loadImages();
+</script>
+</body>
+</html>

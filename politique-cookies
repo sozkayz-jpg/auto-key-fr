@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Politique de Cookies — Auto-Key</title>
+<meta name="description" content="Politique de cookies du site Auto-Key. Information sur l'utilisation des cookies techniques et de mesure d'audience.">
+<meta name="robots" content="noindex,follow">
+<link rel="canonical" href="https://www.allo-cle-auto.fr/politique-cookies">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/styles.min.css">
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://www.allo-cle-auto.fr/"},{"@type":"ListItem","position":2,"name":"Politique de cookies","item":"https://www.allo-cle-auto.fr/politique-cookies"}]}
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index" class="logo">
+      <img src="assets/img/logo-new.png" alt="Allo Clé Auto" width="200" height="60">
+    </a>
+    <nav class="nav">
+      <a href="index">Accueil</a>
+      <div class="has-dropdown">
+        <a href="services">Services ▾</a>
+        <div class="dropdown">
+          <a href="services#duplication">Double de clé</a>
+          <a href="cle-perdue-haute-savoie">Clé perdue sans double</a>
+          <a href="reparation-cle-voiture">Réparation de clé</a>
+          <a href="services#diagnostic">Diagnostic électronique</a>
+          <a href="services#multimedia">Multimédia auto</a>
+          <a href="marques/index">Marques</a>
+        </div>
+      </div>
+      <a href="tarifs">Tarifs</a>
+      <div class="has-dropdown">
+        <a href="zone-intervention">Zones ▾</a>
+        <div class="dropdown">
+          <a href="villes/annecy">Annecy</a>
+          <a href="villes/annemasse">Annemasse</a>
+          <a href="villes/thonon-les-bains">Thonon-les-Bains</a>
+          <a href="villes/cluses">Cluses</a>
+          <a href="villes/sallanches">Sallanches</a>
+          <a href="villes/chambery">Chambéry (73)</a>
+          <a href="zone-intervention">Toutes les villes</a>
+        </div>
+      </div>
+      <a href="blog">Conseils</a>
+      <a href="contact">Contact</a>
+    </nav>
+    <div class="header-cta">
+      <a href="tel:+33746571703" class="header-phone">
+        <span class="phone-icon">☎</span>
+        07 46 57 17 03
+      </a>
+      <a href="tarifs" class="btn btn-blue">Devis gratuit</a>
+    </div>
+    <button class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<aside class="mobile-nav">
+  <a href="index">Accueil</a>
+  <a href="services">Services</a>
+  <a href="reparation-cle-voiture">Réparation de clé</a>
+  <a href="marques/index">Marques</a>
+  <a href="tarifs">Tarifs</a>
+  <a href="zone-intervention">Zones d'intervention</a>
+  <div class="sub">
+    <a href="villes/annecy">— Annecy</a>
+    <a href="villes/annemasse">— Annemasse</a>
+    <a href="villes/thonon-les-bains">— Thonon-les-Bains</a>
+    <a href="villes/cluses">— Cluses</a>
+    <a href="villes/sallanches">— Sallanches</a>
+    <a href="villes/chambery">— Chambéry (73)</a>
+  </div>
+  <a href="blog">Conseils</a>
+  <a href="contact">Contact</a>
+  <div class="cta-row">
+    <a href="https://calendly.com/auto-key/auto-key" target="_blank" rel="noopener" class="btn btn-blue btn-block">📅 Prendre rendez-vous maintenant</a>
+    <a href="tarifs" class="btn btn-outline btn-block">Calculer mon tarif</a>
+  </div>
+</aside>
+<div class="mobile-overlay"></div>
+
+<section class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb"><ol><li><a href="index">Accueil</a></li><li>Politique de cookies</li></ol></nav>
+    <h1>Politique de cookies</h1>
+    <p>Information sur l'utilisation des cookies sur le site allo-cle-auto.fr.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container container-narrow">
+    <div class="prose reveal">
+      <h2>Qu'est-ce qu'un cookie ?</h2>
+      <p>Un cookie est un petit fichier texte déposé sur votre terminal (ordinateur, tablette, smartphone) lors de votre visite sur un site web. Il permet au site de mémoriser certaines informations sur votre visite (préférences, langue, statistiques de fréquentation).</p>
+
+      <h2>Cookies utilisés sur allo-cle-auto.fr</h2>
+      <p>Le site allo-cle-auto.fr utilise des cookies de deux catégories :</p>
+      <h3>1. Cookies strictement nécessaires</h3>
+      <p>Ces cookies sont indispensables au bon fonctionnement du site. Ils permettent la navigation, l'accès aux pages et l'utilisation des fonctionnalités. Sans ces cookies, le site ne pourrait pas fonctionner correctement. Ils ne nécessitent pas de consentement.</p>
+      <ul>
+        <li><strong>Cookies de session :</strong> mémorisation de votre session de navigation</li>
+        <li><strong>Cookies de sécurité :</strong> protection contre les attaques CSRF</li>
+      </ul>
+      <h3>2. Cookies de mesure d'audience (anonymes)</h3>
+      <p>Ces cookies permettent d'établir des statistiques de fréquentation du site afin de l'améliorer. Les données collectées sont anonymes et ne permettent pas de vous identifier.</p>
+      <ul>
+        <li><strong>Statistiques de visite :</strong> nombre de visites, pages vues, durée de session</li>
+        <li><strong>Source de trafic :</strong> origine des visiteurs (moteur de recherche, accès direct, lien)</li>
+      </ul>
+
+      <h2>Durée de conservation</h2>
+      <p>Les cookies de session sont supprimés à la fermeture de votre navigateur. Les cookies de mesure d'audience sont conservés au maximum 13 mois, conformément aux recommandations de la CNIL.</p>
+
+      <h2>Gestion de vos cookies</h2>
+      <p>Vous pouvez à tout moment refuser, accepter ou supprimer les cookies déposés sur votre terminal :</p>
+      <ul>
+        <li><strong>Via votre navigateur :</strong> la plupart des navigateurs permettent de configurer le blocage des cookies dans leurs paramètres.</li>
+        <li><strong>Via le bouton de consentement :</strong> si un bandeau de consentement s'affiche, vous pouvez gérer vos préférences.</li>
+      </ul>
+      <p>Pour plus d'informations sur la gestion des cookies selon votre navigateur :</p>
+      <ul>
+        <li><a href="https://support.google.com/chrome/answer/95647" rel="noopener" target="_blank">Google Chrome</a></li>
+        <li><a href="https://support.mozilla.org/fr/kb/cookies-informations-sites-enregistrent" rel="noopener" target="_blank">Mozilla Firefox</a></li>
+        <li><a href="https://support.apple.com/fr-fr/guide/safari/sfri11471/mac" rel="noopener" target="_blank">Apple Safari</a></li>
+        <li><a href="https://support.microsoft.com/fr-fr/microsoft-edge" rel="noopener" target="_blank">Microsoft Edge</a></li>
+      </ul>
+
+      <h2>Vos droits</h2>
+      <p>Conformément au RGPD et à la loi « Informatique et Libertés », vous disposez d'un droit d'accès, de rectification, d'opposition et de suppression des données vous concernant. Pour exercer ce droit, contactez-nous à <a href="mailto:contact@allo-cle-auto.fr">contact@allo-cle-auto.fr</a>.</p>
+
+      <h2>Contact</h2>
+      <p>Pour toute question relative à notre politique de cookies :</p>
+      <ul>
+        <li><strong>Email :</strong> <a href="mailto:contact@allo-cle-auto.fr">contact@allo-cle-auto.fr</a></li>
+        <li><strong>Téléphone :</strong> <a href="tel:+33746571703">07 46 57 17 03</a></li>
+        <li><strong>Adresse :</strong> 10 Rue du Collège, 74950 Scionzier</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <h2 class="footer-title sr-only">Liens utiles et informations de contact</h2>
+    <div class="footer-grid">
+      <div class="footer-col footer-brand">
+        <a href="index" class="logo">
+          <img src="assets/img/logo-new.png" alt="Allo Clé Auto" width="220" height="68">
+        </a>
+        <p>Spécialiste du double de clé de voiture et du dépannage clé perdue sans double en Haute-Savoie et en Savoie. Service mobile à domicile, devis garanti, garantie 12 mois.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Services</h4>
+        <ul>
+          <li><a href="services#duplication">Double de clé</a></li>
+          <li><a href="cle-perdue-haute-savoie">Clé perdue sans double</a></li>
+          <li><a href="services#reparation">Réparation de clé</a></li>
+          <li><a href="services#diagnostic">Diagnostic électronique</a></li>
+          <li><a href="services#multimedia">Multimédia & sécurité</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Zones</h4>
+        <ul>
+          <li><a href="villes/annecy">Annecy</a></li>
+          <li><a href="villes/annemasse">Annemasse</a></li>
+          <li><a href="villes/thonon-les-bains">Thonon-les-Bains</a></li>
+          <li><a href="villes/cluses">Cluses</a></li>
+          <li><a href="villes/sallanches">Sallanches</a></li>
+          <li><a href="villes/chambery">Chambéry</a></li>
+          <li><a href="zone-intervention">Toutes les villes</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Contact</h4>
+        <ul class="footer-contact">
+          <li><span class="icon">☎</span> <a href="tel:+33746571703">07 46 57 17 03</a></li>
+          <li><span class="icon">✉</span> <a href="mailto:contact@allo-cle-auto.fr">contact@allo-cle-auto.fr</a></li>
+          <li><span class="icon">📍</span> 10 Rue du Collège, 74950 Scionzier</li>
+          <li><span class="icon">🕒</span> Ouvert 24h/24 &ndash; 7j/7</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© <span data-year>2026</span> Auto-Key.fr — Z.E shophub · SIRET 82399004900038</div>
+      <div><a href="mentions-legales">Mentions légales</a> · <a href="politique-cookies">Cookies</a></div>
+    </div>
+  </div>
+
+<!-- Bandeau cookies RGPD -->
+<div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Gestion des cookies">
+  <div class="cookie-inner">
+    <p>Nous utilisons des cookies essentiels et, avec votre consentement, des services tiers (carte, statistiques) pour améliorer votre expérience. <a href="politique-cookies">En savoir plus</a>.</p>
+    <div class="cookie-actions">
+      <button id="cookie-accept" class="btn btn-sm btn-primary">Tout accepter</button>
+      <button id="cookie-essential" class="btn btn-sm btn-outline">Essentiels uniquement</button>
+    </div>
+  </div>
+</div>
+
+</footer>
+
+<div class="floating-actions">  <a href="tel:+33746571703" class="floating-btn tel" aria-label="Appeler">☎</a>  <a href="https://wa.me/33746571703" class="floating-btn wa" aria-label="WhatsApp">💬</a>
+</div>
+
+<script src="assets/js/main.min.js?v=5"></script>
+</body>
+</html>

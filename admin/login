@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Admin Auto-Key — Connexion</title>
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<style>
+:root {
+  --c-primary: #000000;
+  --c-light: #5998D1;
+  --c-dark: #000000;
+  --c-bg: #f4f7fb;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #f4f7fb; min-height: 100vh; display: grid; place-items: center; padding: 20px; }
+.card { background: #fff; border-radius: 20px; padding: 40px; width: 100%; max-width: 380px; box-shadow: 0 20px 60px rgba(0,0,0,.2); }
+.logo { display: block; margin-bottom: 30px; }
+.logo img { display: block; height: 46px; width: auto; }
+h1 { font-size: 1.3rem; margin-bottom: 8px; color: #000; font-family: 'Inter', Arial, sans-serif; font-weight: 700; }
+p { color: #5A6B82; font-size: .9rem; margin-bottom: 24px; }
+label { display: block; font-weight: 600; font-size: .85rem; margin-bottom: 6px; color: #1E2A3A; }
+input { width: 100%; padding: 12px 14px; border: 2px solid #E1E8F0; border-radius: 10px; font-size: 1rem; margin-bottom: 16px; transition: border-color .15s; }
+input:focus { outline: none; border-color: #5998D1; }
+button { width: 100%; padding: 14px; border: 0; border-radius: 999px; background: #000000; color: #fff; font-weight: 600; font-size: 1rem; cursor: pointer; transition: background .15s; }
+button:hover { background: #5998D1; }
+button:disabled { opacity: .5; cursor: not-allowed; }
+.error { background: #FEE2E2; color: #DC2626; padding: 10px 14px; border-radius: 10px; font-size: .85rem; margin-bottom: 16px; display: none; }
+.warning { background: #FEF3C7; color: #92400E; padding: 10px 14px; border-radius: 10px; font-size: .85rem; margin-bottom: 16px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <a href="../index" class="logo"><img src="../assets/img/logo-new.png" alt="Allo Clé Auto" width="170" height="70"></a>
+    <h1>Administration</h1>
+    <p>Connectez-vous pour gerer les images et le contenu du site.</p>
+    <div class="warning" id="lock" style="display:none">Trop de tentatives. Reessayez dans 15 minutes.</div>
+    <div class="error" id="err"></div>
+    <form id="login-form" autocomplete="on">
+      <label for="user">Identifiant</label>
+      <input type="text" id="user" name="user" required autocomplete="username" maxlength="100" autocapitalize="off" autocorrect="off" spellcheck="false">
+      <label for="pass">Mot de passe</label>
+      <input type="password" id="pass" name="pass" required autocomplete="current-password" maxlength="200">
+      <button type="submit" id="btn">Se connecter &rarr;</button>
+    </form>
+  </div>
+  <script>
+  (function(){
+    var form = document.getElementById('login-form');
+    var err = document.getElementById('err');
+    var lock = document.getElementById('lock');
+    var btn = document.getElementById('btn');
+    form.addEventListener('submit', async function(e){
+      e.preventDefault();
+      err.style.display = 'none';
+      lock.style.display = 'none';
+      var user = document.getElementById('user').value.trim();
+      var pass = document.getElementById('pass').value;
+      if (!user || !pass) return;
+      btn.disabled = true;
+      btn.textContent = 'Connexion...';
+      try {
+        var r = await fetch('admin.php?action=login', {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ user: user, pass: pass })
+        });
+        var data = await r.json();
+        if (r.ok && data.success) {
+          // Stocker le token CSRF pour le dashboard
+          if (data.csrf_token) sessionStorage.setItem('csrf_token', data.csrf_token);
+          location.replace('admin.php?action=list');
+        } else if (r.status === 429) {
+          lock.style.display = 'block';
+        } else {
+          err.textContent = data.error || 'Erreur';
+          err.style.display = 'block';
+        }
+      } catch (ex) {
+        err.textContent = 'Erreur reseau';
+        err.style.display = 'block';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Se connecter \u2192';
+      }
+    });
+  })();
+  </script>
+</body>
+</html>

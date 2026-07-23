@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Réparation de clé voiture : coque, bouton, lame, puce — Auto-Key</title>
+<meta name="description" content="Réparation de clé voiture en Haute-Savoie : coque cassée, bouton HS, lame tordue, puce défectueuse. À partir de 39€. Intervention mobile à domicile. ☎ 07 46 57 17 03">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<link rel="canonical" href="https://www.allo-cle-auto.fr/reparation-cle-voiture">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Réparation de clé voiture : coque, bouton, lame, puce — Auto-Key">
+<meta property="og:description" content="Réparation de clé voiture en Haute-Savoie : coque, bouton, lame, puce. Service mobile à domicile.">
+<meta property="og:url" content="https://www.allo-cle-auto.fr/reparation-cle-voiture">
+<meta property="og:site_name" content="Auto-Key">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/styles.min.css">
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://www.allo-cle-auto.fr/"},{"@type":"ListItem","position":2,"name":"Réparation clé","item":"https://www.allo-cle-auto.fr/reparation-cle-voiture"}]}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"ItemList",
+  "itemListElement":[
+    {"@type":"Service","name":"Duplication de clés de voiture","provider":{"@id":"https://www.allo-cle-auto.fr/#business"},"areaServed":{"@type":"AdministrativeArea","name":"Haute-Savoie (74)"},"offers":{"@type":"Offer","price":"49","priceCurrency":"EUR"}},
+    {"@type":"Service","name":"Dépannage clé perdue sans double","provider":{"@id":"https://www.allo-cle-auto.fr/#business"},"areaServed":{"@type":"AdministrativeArea","name":"Haute-Savoie (74)"},"offers":{"@type":"Offer","price":"69","priceCurrency":"EUR"}},
+    {"@type":"Service","name":"Réparation de clé endommagée","provider":{"@id":"https://www.allo-cle-auto.fr/#business"},"offers":{"@type":"Offer","price":"39","priceCurrency":"EUR"}},
+    {"@type":"Service","name":"Diagnostic électronique automobile","provider":{"@id":"https://www.allo-cle-auto.fr/#business"},"offers":{"@type":"Offer","price":"59","priceCurrency":"EUR"}},
+    {"@type":"Service","name":"Installation multimédia automobile","provider":{"@id":"https://www.allo-cle-auto.fr/#business"}}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org","@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"Quels services propose Auto-Key en Haute-Savoie ?","acceptedAnswer":{"@type":"Answer","text":"Auto-Key propose la duplication de clés de voiture, le dépannage clé perdue sans double, la réparation de clé endommagée, le diagnostic électronique automobile et l'installation multimédia. Tous les services sont réalisés sur place, à domicile ou sur votre lieu de travail."}},
+    {"@type":"Question","name":"Intervenez-vous à domicile pour faire un double de clé ?","acceptedAnswer":{"@type":"Answer","text":"Oui. Notre atelier mobile se déplace à domicile ou sur le lieu de votre choix en Haute-Savoie et en Savoie. Le déplacement est inclus dans un rayon de 15 km autour de Scionzier, au-delà un forfait kilométrique s'applique."}},
+    {"@type":"Question","name":"Quelles marques de véhicules couvrez-vous ?","acceptedAnswer":{"@type":"Answer","text":"Nous intervenons sur toutes les marques : Renault, Peugeot, Citroën, Volkswagen, Audi, BMW, Mercedes, Ford, Toyota, et bien d'autres. Nos équipements programment les clés avec transpondeur, télécommande et systèmes mains-libres."}},
+    {"@type":"Question","name":"La nouvelle clé est-elle garantie ?","acceptedAnswer":{"@type":"Answer","text":"Oui, toutes nos clés sont garanties 12 mois. Nous testons l'ouverture, la fermeture centralisée et le démarrage devant vous avant de valider l'intervention."}}
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org","@type":"HowTo",
+  "name":"Comment réparer une clé de voiture endommagée ?",
+  "description":"Guide étape par étape pour faire réparer une clé de voiture en Haute-Savoie avec Auto-Key.",
+  "step":[
+    {"@type":"HowToStep","position":1,"name":"Diagnostic de la clé","text":"Le technicien teste l'électronique, la puce, les boutons et la lame pour identifier la panne."},
+    {"@type":"HowToStep","position":2,"name":"Devis transparent","text":"Vous recevez un devis clair avant toute réparation."},
+    {"@type":"HowToStep","position":3,"name":"Réparation sur place","text":"Le technicien remplace uniquement les pièces défectueuses (coque, boutons, lame, puce)."},
+    {"@type":"HowToStep","position":4,"name":"Test et garantie","text":"Ouverture, fermeture et démarrage sont testés devant vous. La réparation est garantie 12 mois."}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index" class="logo">
+      <img src="assets/img/logo-new.png" alt="Allo Clé Auto" width="200" height="60">
+    </a>
+    <nav class="nav">
+      <a href="index">Accueil</a>
+      <div class="has-dropdown">
+        <a href="services">Services ▾</a>
+        <div class="dropdown">
+          <a href="services#duplication">Double de clé</a>
+          <a href="cle-perdue-haute-savoie">Clé perdue sans double</a>
+          <a href="reparation-cle-voiture">Réparation de clé</a>
+          <a href="services#diagnostic">Diagnostic électronique</a>
+          <a href="services#multimedia">Multimédia auto</a>
+          <a href="marques/index">Marques</a>
+        </div>
+      </div>
+      <a href="tarifs">Tarifs</a>
+      <div class="has-dropdown">
+        <a href="zone-intervention">Zones ▾</a>
+        <div class="dropdown">
+          <a href="villes/annecy">Annecy</a>
+          <a href="villes/annemasse">Annemasse</a>
+          <a href="villes/thonon-les-bains">Thonon-les-Bains</a>
+          <a href="villes/cluses">Cluses</a>
+          <a href="villes/sallanches">Sallanches</a>
+          <a href="villes/chambery">Chambéry (73)</a>
+          <a href="zone-intervention">Toutes les villes</a>
+        </div>
+      </div>
+      <a href="blog">Conseils</a>
+      <a href="contact">Contact</a>
+    </nav>
+    <div class="header-cta">
+      <a href="tel:+33746571703" class="header-phone">
+        <span class="phone-icon">☎</span>
+        07 46 57 17 03
+      </a>
+      <a href="tarifs" class="btn btn-blue">Devis gratuit</a>
+    </div>
+    <button class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<aside class="mobile-nav">
+  <a href="index">Accueil</a>
+  <a href="services">Services</a>
+  <a href="reparation-cle-voiture">Réparation de clé</a>
+  <a href="marques/index">Marques</a>
+  <a href="tarifs">Tarifs</a>
+  <a href="zone-intervention">Zones d'intervention</a>
+  <div class="sub">
+    <a href="villes/annecy">— Annecy</a>
+    <a href="villes/annemasse">— Annemasse</a>
+    <a href="villes/thonon-les-bains">— Thonon-les-Bains</a>
+    <a href="villes/cluses">— Cluses</a>
+    <a href="villes/sallanches">— Sallanches</a>
+    <a href="villes/chambery">— Chambéry (73)</a>
+  </div>
+  <a href="blog">Conseils</a>
+  <a href="contact">Contact</a>
+  <div class="cta-row">
+    <a href="https://calendly.com/auto-key/auto-key" target="_blank" rel="noopener" class="btn btn-blue btn-block">📅 Prendre rendez-vous maintenant</a>
+    <a href="tarifs" class="btn btn-outline btn-block">Calculer mon tarif</a>
+  </div>
+</aside>
+<div class="mobile-overlay"></div>
+
+<section class="page-hero"><div class="container">
+  <nav class="breadcrumb"><ol><li><a href="index">Accueil</a></li><li>Services</li></ol></nav>
+  <span class="badge badge-light mb-3">Expertise complète</span>
+  <h1>Services de clé et multimédia automobile en Haute-Savoie</h1>
+  <p>Duplication de clés, dépannage d'urgence, réparation, diagnostic électronique et installation multimédia. Nos techniciens mobiles interviennent sur place, sur toutes marques, avec un matériel de dernière génération.</p>
+</div></section>
+
+<!-- Duplication -->
+<section class="section" id="duplication"><div class="container">
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:50px;align-items:center">
+    <div class="reveal">
+      <span class="badge mb-3">À partir de 49€</span>
+      <h2>Duplication de clés de voiture</h2>
+      <p class="lead">Copie précise et programmation électronique de votre clé, même pour les modèles récents.</p>
+      <p>Nous proposons un service de duplication de clés de voiture, y compris la création de copies pour clés avec transpondeur et clés à distance. Notre équipe utilise des technologies avancées pour garantir une précision et une sécurité optimales.</p>
+      <ul style="margin-bottom:24px">
+        <li>✓ Copies de clés précises et rapides</li>
+        <li>✓ Clés avec transpondeur disponibles</li>
+        <li>✓ Clés à télécommande et mains-libres</li>
+        <li>✓ Service sur place et sécurisé</li>
+        <li>✓ Programmation aux normes constructeurs</li>
+      </ul>
+      <a href="tarifs" class="btn btn-blue">Calculer mon tarif en 3s</a>
+    </div>
+    <div class="reveal"><img src="assets/img/service-duplication.webp" alt="Duplication de clé de voiture" loading="lazy" style="border-radius:var(--r-lg);box-shadow:var(--sh-lg)" width="600" height="400"></div>
+  </div>
+</div></section>
+
+<!-- Clé perdue -->
+<section class="section bg-light" id="perdue"><div class="container">
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:50px;align-items:center">
+    <div class="reveal" style="order:2"><img src="assets/img/service-perdue.webp" alt="Clé perdue sans double dépannage" loading="lazy" style="border-radius:var(--r-lg);box-shadow:var(--sh-lg)" width="600" height="400"></div>
+    <div class="reveal" style="order:1">
+      <span class="badge mb-3">Dépannage en 1h</span>
+      <h2>Clé perdue sans double</h2>
+      <p class="lead">Solution All Keys Lost : nous recréons votre clé sur place, sans remorquage.</p>
+      <p>Plus aucune clé disponible ? Nous ouvrons le véhicule sans effraction, décodons la serrure, taillons une nouvelle lame et reprogrammons l'anti-démarrage directement via la prise OBD.</p>
+      <ul style="margin-bottom:24px">
+        <li>✓ Ouverture fine sans dégâts</li>
+        <li>✓ Décodage de serrure sur place</li>
+        <li>✓ Reprogrammation anti-démarrage</li>
+        <li>✓ Suppression de l'ancienne clé perdue</li>
+        <li>✓ Toutes marques, tous modèles</li>
+      </ul>
+      <a href="cle-perdue-haute-savoie" class="btn btn-primary">En savoir plus</a>
+    </div>
+  </div>
+</div></section>
+
+<!-- Réparation -->
+<section class="section" id="reparation"><div class="container">
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:50px;align-items:center">
+    <div class="reveal">
+      <span class="badge mb-3">À partir de 39€</span>
+      <h2>Réparation de clé endommagée</h2>
+      <p class="lead">Économisez jusqu'à 70% en réparant plutôt qu'en remplaçant.</p>
+      <p>Coque cassée, bouton HS, lame tordue ? Nous ouvrons, nettoyons et remplaçons les composants internes de votre clé, puis testons chaque fonction (ouverture, démarrage, électronique) pour garantir sa fiabilité.</p>
+      <ul style="margin-bottom:24px">
+        <li>✓ Remplacement de coque plastique</li>
+        <li>✓ Remplacement de lame</li>
+        <li>✓ Réparation de boutons de télécommande</li>
+        <li>✓ Conservation de votre électronique d'origine</li>
+        <li>✓ Tests complets avant remise</li>
+      </ul>
+      <a href="contact" class="btn btn-blue">Nous contacter</a>
+    </div>
+    <div class="reveal"><img src="assets/img/service-reparation.webp" alt="Réparation de clé de voiture" loading="lazy" style="border-radius:var(--r-lg);box-shadow:var(--sh-lg)" width="600" height="400"></div>
+  </div>
+</div></section>
+
+<!-- Diagnostic -->
+<section class="section bg-light" id="diagnostic"><div class="container">
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:50px;align-items:center">
+    <div class="reveal" style="order:2"><img src="assets/img/service-diagnostic.webp" alt="Diagnostic électronique automobile" loading="lazy" style="border-radius:var(--r-lg);box-shadow:var(--sh-lg)" width="600" height="400"></div>
+    <div class="reveal" style="order:1">
+      <span class="badge mb-3">À partir de 59€</span>
+      <h2>Diagnostic électronique</h2>
+      <p class="lead">Valise multi-marque : identifiez la panne avant de payer.</p>
+      <p>Notre équipe effectue des diagnostics de pannes électroniques et reprogramme les injecteurs, calculateurs et autres organes essentiels de votre véhicule. Notre expertise garantit des performances optimales.</p>
+      <ul style="margin-bottom:24px">
+        <li>✓ Diagnostic moteur, ABS, airbag</li>
+        <li>✓ Reprogrammation calculateurs</li>
+        <li>✓ Reprogrammation injecteurs</li>
+        <li>✓ Effacement codes défauts</li>
+        <li>✓ Toutes marques</li>
+      </ul>
+      <a href="contact" class="btn btn-blue">Nous contacter</a>
+    </div>
+  </div>
+</div></section>
+
+<!-- Multimédia -->
+<section class="section" id="multimedia"><div class="container">
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:50px;align-items:center">
+    <div class="reveal">
+      <span class="badge mb-3">Sur devis gratuit</span>
+      <h2>Installation multimédia & sécurité</h2>
+      <p class="lead">Améliorez votre expérience de conduite et la sécurité de votre véhicule.</p>
+      <p>Nous installons des autoradios, enceintes, écrans, caméras de recul, radars de stationnement et systèmes d'alarme. Nos techniciens qualifiés s'assurent que chaque installation est effectuée avec soin et professionnalisme.</p>
+      <ul style="margin-bottom:24px">
+        <li>✓ Autoradios & écrans multimédia</li>
+        <li>✓ Caméras de recul</li>
+        <li>✓ Radars de stationnement</li>
+        <li>✓ Alarmes & systèmes anti-vol</li>
+        <li>✓ Enceintes & amplification</li>
+      </ul>
+      <a href="contact" class="btn btn-blue">Nous contacter</a>
+    </div>
+    <div class="reveal"><img src="assets/img/service-multimedia.webp" alt="Installation multimédia automobile" loading="lazy" style="border-radius:var(--r-lg);box-shadow:var(--sh-lg)" width="600" height="400"></div>
+  </div>
+</div></section>
+
+<section class="section-sm"><div class="container"><div class="cta-band reveal">
+      <h2>Votre clé est endommagée ?</h2>
+      <p>Faites-la réparer à partir de 39€. Intervention mobile à domicile en Haute-Savoie.</p>
+      <div class="btn-row"><a href="tel:+33746571703" class="btn btn-blue">07 46 57 17 03</a><a href="tarifs" class="btn btn-ghost btn-lg">Calculer mon tarif</a></div>
+    </div></div></section>
+
+<footer class="site-footer">
+  <div class="container">
+    <h2 class="footer-title sr-only">Liens utiles et informations de contact</h2>
+    <div class="footer-grid">
+      <div class="footer-col footer-brand">
+        <a href="index" class="logo">
+          <img src="assets/img/logo-new.png" alt="Allo Clé Auto" width="220" height="68">
+        </a>
+        <p>Spécialiste du double de clé de voiture et du dépannage clé perdue sans double en Haute-Savoie et en Savoie. Service mobile à domicile, devis garanti, garantie 12 mois.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Services</h4>
+        <ul>
+          <li><a href="services#duplication">Double de clé</a></li>
+          <li><a href="cle-perdue-haute-savoie">Clé perdue sans double</a></li>
+          <li><a href="services#reparation">Réparation de clé</a></li>
+          <li><a href="services#diagnostic">Diagnostic électronique</a></li>
+          <li><a href="services#multimedia">Multimédia & sécurité</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Zones</h4>
+        <ul>
+          <li><a href="villes/annecy">Annecy</a></li>
+          <li><a href="villes/annemasse">Annemasse</a></li>
+          <li><a href="villes/thonon-les-bains">Thonon-les-Bains</a></li>
+          <li><a href="villes/cluses">Cluses</a></li>
+          <li><a href="villes/sallanches">Sallanches</a></li>
+          <li><a href="villes/chambery">Chambéry</a></li>
+          <li><a href="zone-intervention">Toutes les villes</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Contact</h4>
+        <ul class="footer-contact">
+          <li><span class="icon">☎</span> <a href="tel:+33746571703">07 46 57 17 03</a></li>
+          <li><span class="icon">✉</span> <a href="mailto:contact@allo-cle-auto.fr">contact@allo-cle-auto.fr</a></li>
+          <li><span class="icon">📍</span> 10 Rue du Collège, 74950 Scionzier</li>
+          <li><span class="icon">🕒</span> Ouvert 24h/24 &ndash; 7j/7</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© <span data-year>2026</span> Auto-Key.fr — Z.E shophub · SIRET 82399004900038</div>
+      <div><a href="mentions-legales">Mentions légales</a> · <a href="politique-cookies">Cookies</a></div>
+    </div>
+  </div>
+
+<!-- Bandeau cookies RGPD -->
+<div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Gestion des cookies">
+  <div class="cookie-inner">
+    <p>Nous utilisons des cookies essentiels et, avec votre consentement, des services tiers (carte, statistiques) pour améliorer votre expérience. <a href="politique-cookies">En savoir plus</a>.</p>
+    <div class="cookie-actions">
+      <button id="cookie-accept" class="btn btn-sm btn-primary">Tout accepter</button>
+      <button id="cookie-essential" class="btn btn-sm btn-outline">Essentiels uniquement</button>
+    </div>
+  </div>
+</div>
+
+</footer>
+
+<div class="floating-actions">  <a href="tel:+33746571703" class="floating-btn tel" aria-label="Appeler">☎</a>  <a href="https://wa.me/33746571703" class="floating-btn wa" aria-label="WhatsApp">💬</a>
+</div>
+
+<script src="assets/js/main.min.js?v=5"></script>
+</body>
+</html>
