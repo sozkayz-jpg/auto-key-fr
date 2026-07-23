@@ -8,6 +8,9 @@ RewriteRule ^(.*)$ https://www.allo-cle-auto.fr/$1 [L,R=301]
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
 
+# /index -> / (URL propre)
+RewriteRule ^index\.html?$ / [L,R=301]
+
 # Retirer .html des URLs existantes
 RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
 RewriteRule ^ /%1 [L,R=301]
