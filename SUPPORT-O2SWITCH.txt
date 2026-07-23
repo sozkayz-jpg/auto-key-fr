@@ -1,0 +1,42 @@
+Bonjour,
+
+Je vous contacte au sujet d'un problème sur mon hébergement.
+
+COMPTE
+- Domaine : allo-cle-auto.fr
+- Identifiant : wufe8006
+- Type : hébergement mutualisé
+
+PROBLÈME
+Quand j'upload un fichier .htaccess contenant des directives de réécriture d'URL (RewriteRule), le serveur retourne une erreur 500 "Internal Server Error" sur toutes les pages.
+
+EXEMPLE QUI NE MARCHE PAS (provoque erreur 500) :
+```
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
+```
+
+EXEMPLE QUI MARCHE (le site fonctionne) :
+```
+Options -Indexes
+```
+
+J'ai besoin d'aide pour les points suivants :
+
+1. Pourriez-vous vérifier dans les logs d'erreur Apache (error_log) la raison exacte pour laquelle RewriteEngine et RewriteRule sont bloqués sur mon compte ?
+
+2. La directive AllowOverride est-elle bien activée pour mon domaine dans la configuration Apache ? Si oui, pourquoi RewriteRule ne fonctionne-t-il pas ?
+
+3. Y a-t-il des restrictions de sécurité (mod_security, règles personnalisées) qui bloquent les directives de réécriture d'URL ?
+
+4. Est-ce que mon offre d'hébergement mutualisé permet l'utilisation de RewriteRule dans les fichiers .htaccess ?
+
+CONTEXTE
+Je souhaite retirer l'extension .html des URLs de mon site pour des raisons de SEO. J'ai 332 fichiers HTML et j'aimerais que les utilisateurs voient des URLs propres comme "https://www.allo-cle-auto.fr/contact" au lieu de "https://www.allo-cle-auto.fr/contact.html".
+
+Pourriez-vous m'aider à résoudre ce problème ? Je peux vous fournir mon fichier .htaccess actuel si nécessaire.
+
+Merci d'avance pour votre aide.
+
+Cordialement

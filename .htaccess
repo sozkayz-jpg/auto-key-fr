@@ -1,2 +1,40 @@
-ErrorDocument 404 /404.html
-Options -Indexes
+RewriteEngine On
+
+# Forcer HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
+
+# Redirection ancien domaine
+RewriteCond %{HTTP_HOST} ^auto-key\.fr [NC]
+RewriteRule ^(.*)$ https://www.allo-cle-auto.fr/$1 [L,R=301]
+
+# Rediriger /page.html vers /page (pour que .html ne s'affiche jamais)
+RewriteCond %{THE_REQUEST} \s/([^.]+)\.html [NC]
+RewriteRule ^ /%1 [L,R=301]
+
+# Servir page.html quand on accede a /page (sans extension)
+RewriteCond %{REQUEST_URI} !\.html$
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^([^/]+)/?$ $1.html [L]
+
+# Pour les sous-dossiers (villes, marques, blog, admin)
+RewriteCond %{REQUEST_URI} !\.html$
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^([^/]+)/([^/]+)/?$ $1/$2.html [L]
+
+# Dossiers avec index (blog, villes, marques)
+RewriteCond %{REQUEST_URI} ^/blog/?$
+RewriteCond %{REQUEST_FILENAME}/index.html -f
+RewriteRule ^blog/?$ /blog/index [L,R=301]
+
+RewriteCond %{REQUEST_URI} ^/villes/?$
+RewriteCond %{REQUEST_FILENAME}/index.html -f
+RewriteRule ^villes/?$ /villes/index [L,R=301]
+
+RewriteCond %{REQUEST_URI} ^/marques/?$
+RewriteCond %{REQUEST_FILENAME}/index.html -f
+RewriteRule ^marques/?$ /marques/index [L,R=301]
