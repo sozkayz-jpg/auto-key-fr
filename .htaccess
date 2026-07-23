@@ -1,61 +1,27 @@
 RewriteEngine On
 
+# Redirection permanente ancien domaine
+RewriteCond %{HTTP_HOST} ^auto-key\.fr [NC]
+RewriteRule ^(.*)$ https://www.allo-cle-auto.fr/$1 [L,R=301]
+
 # HTTPS
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
 
-# Retirer .html des URLs (seulement pour les fichiers, pas les dossiers)
+# Retirer .html des URLs existantes
 RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
 RewriteRule ^ /%1 [L,R=301]
 
-# Ne s'applique qu'aux fichiers .html a la racine qui n'existent pas sans extension
+# Reecriture simple : page.html -> page (root level only)
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME}.html -f
-RewriteRule ^([^/]+)/?$ /$1.html [L]
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^([^/]+)/?$ $1.html [L]
 
-# API
+# API : pas de rewrite
 RewriteRule ^api/ - [L]
 
 ErrorDocument 404 /404.html
-
-# Cache
-<IfModule mod_expires.c>
-  ExpiresActive On
-  ExpiresByType text/html "access plus 1 hour"
-  ExpiresByType text/css "access plus 1 month"
-  ExpiresByType application/javascript "access plus 1 month"
-  ExpiresByType image/jpeg "access plus 6 months"
-  ExpiresByType image/png "access plus 6 months"
-  ExpiresByType image/webp "access plus 6 months"
-  ExpiresByType image/svg+xml "access plus 6 months"
-  ExpiresByType font/woff2 "access plus 1 year"
-</IfModule>
-
-# Compression
-<IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json
-</IfModule>
-
-# Security headers
-<IfModule mod_headers.c>
-  Header set X-Content-Type-Options "nosniff"
-  Header set X-Frame-Options "SAMEORIGIN"
-  Header set X-XSS-Protection "1; mode=block"
-  Header set Referrer-Policy "strict-origin-when-cross-origin"
-  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
-  Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://nominatim.openstreetmap.org https://router.project-osrm.org; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://nominatim.openstreetmap.org https://router.project-osrm.org https://calendly.com; frame-src https://calendly.com; object-src 'none'; base-uri 'self'; form-action 'self' https://calendly.com"
-</IfModule>
-
-# Cache HTML
-<IfModule mod_headers.c>
-  <FilesMatch "\.(html|css|js)$">
-    Header set Cache-Control "no-cache, must-revalidate"
-  </FilesMatch>
-  <FilesMatch "\.(jpg|jpeg|png|gif|webp|svg|woff|woff2)$">
-    Header set Cache-Control "public, max-age=15552000"
-  </FilesMatch>
-</IfModule>
 
 Options -Indexes
 ServerSignature Off
