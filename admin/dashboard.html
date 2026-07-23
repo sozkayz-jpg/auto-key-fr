@@ -186,7 +186,7 @@ function copyUrl(url) {
 
 async function del(name) {
   if (!confirm('Supprimer cette image ?')) return;
-  const r = await fetch(API + '?action=delete', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name }) });
+  const r = await fetch(API + '?action=delete', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': getCSRF() }, body: JSON.stringify({ name }) });
   const data = await r.json();
   if (r.ok) { toast('Image supprimée'); loadImages(); }
   else toast(data.error || 'Erreur', true);
@@ -232,7 +232,7 @@ async function saveAssign() {
     const role = sel.dataset.role;
     const image = sel.value;
     if (image && image !== getConfigValue(role)) {
-      await fetch(API + '?action=assign', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ role, image }) });
+      await fetch(API + '?action=assign', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': getCSRF() }, body: JSON.stringify({ role, image }) });
       anyChange = true;
     }
   }
@@ -256,7 +256,7 @@ async function saveSettings() {
     address: document.getElementById('cfg-address').value,
     hours: document.getElementById('cfg-hours').value,
   };
-  const r = await fetch(API + '?action=config', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+  const r = await fetch(API + '?action=config', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': getCSRF() }, body: JSON.stringify(body) });
   if (r.ok) toast('Paramètres enregistrés ✓');
   else toast('Erreur', true);
 }

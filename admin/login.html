@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Admin Auto-Key — Connexion</title>
 <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
 <style>
@@ -24,48 +25,68 @@ input { width: 100%; padding: 12px 14px; border: 2px solid #E1E8F0; border-radiu
 input:focus { outline: none; border-color: #5998D1; }
 button { width: 100%; padding: 14px; border: 0; border-radius: 999px; background: #000000; color: #fff; font-weight: 600; font-size: 1rem; cursor: pointer; transition: background .15s; }
 button:hover { background: #5998D1; }
+button:disabled { opacity: .5; cursor: not-allowed; }
 .error { background: #FEE2E2; color: #DC2626; padding: 10px 14px; border-radius: 10px; font-size: .85rem; margin-bottom: 16px; display: none; }
+.warning { background: #FEF3C7; color: #92400E; padding: 10px 14px; border-radius: 10px; font-size: .85rem; margin-bottom: 16px; }
 </style>
 </head>
 <body>
   <div class="card">
-    <a href="../index.html" class="logo"><img src="../assets/img/logo.svg" alt="Auto-Key" width="170" height="46"></a>
+    <a href="../index.html" class="logo"><img src="../assets/img/logo-full.png" alt="Auto-Key" width="170" height="70"></a>
     <h1>Administration</h1>
-    <p>Connectez-vous pour gérer les images et le contenu du site.</p>
+    <p>Connectez-vous pour gerer les images et le contenu du site.</p>
+    <div class="warning" id="lock" style="display:none">Trop de tentatives. Reessayez dans 15 minutes.</div>
     <div class="error" id="err"></div>
-    <form id="login-form">
+    <form id="login-form" autocomplete="on">
       <label for="user">Identifiant</label>
-      <input type="text" id="user" name="user" required autocomplete="username">
+      <input type="text" id="user" name="user" required autocomplete="username" maxlength="100" autocapitalize="off" autocorrect="off" spellcheck="false">
       <label for="pass">Mot de passe</label>
-      <input type="password" id="pass" name="pass" required autocomplete="current-password">
-      <button type="submit">Se connecter →</button>
+      <input type="password" id="pass" name="pass" required autocomplete="current-password" maxlength="200">
+      <button type="submit" id="btn">Se connecter &rarr;</button>
     </form>
   </div>
   <script>
-  document.getElementById('login-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const user = document.getElementById('user').value;
-    const pass = document.getElementById('pass').value;
-    const err = document.getElementById('err');
-    err.style.display = 'none';
-    try {
-      const r = await fetch('admin.php?action=login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ user, pass })
-      });
-      const data = await r.json();
-      if (r.ok && data.success) {
-        location.reload();
-      } else {
-        err.textContent = data.error || 'Erreur';
+  (function(){
+    var form = document.getElementById('login-form');
+    var err = document.getElementById('err');
+    var lock = document.getElementById('lock');
+    var btn = document.getElementById('btn');
+    form.addEventListener('submit', async function(e){
+      e.preventDefault();
+      err.style.display = 'none';
+      lock.style.display = 'none';
+      var user = document.getElementById('user').value.trim();
+      var pass = document.getElementById('pass').value;
+      if (!user || !pass) return;
+      btn.disabled = true;
+      btn.textContent = 'Connexion...';
+      try {
+        var r = await fetch('admin.php?action=login', {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ user: user, pass: pass })
+        });
+        var data = await r.json();
+        if (r.ok && data.success) {
+          // Stocker le token CSRF pour le dashboard
+          if (data.csrf_token) sessionStorage.setItem('csrf_token', data.csrf_token);
+          location.replace('admin.php?action=list');
+        } else if (r.status === 429) {
+          lock.style.display = 'block';
+        } else {
+          err.textContent = data.error || 'Erreur';
+          err.style.display = 'block';
+        }
+      } catch (ex) {
+        err.textContent = 'Erreur reseau';
         err.style.display = 'block';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Se connecter \u2192';
       }
-    } catch (ex) {
-      err.textContent = 'Erreur réseau';
-      err.style.display = 'block';
-    }
-  });
+    });
+  })();
   </script>
 </body>
 </html>

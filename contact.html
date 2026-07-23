@@ -148,7 +148,12 @@
       <div class="card">
         <h2 class="mb-3">Formulaire de contact</h2>
         <p style="color:var(--c-muted);margin-bottom:24px">Remplissez ce formulaire, notre équipe vous répondra dans les plus brefs délais. Pour une urgence, appelez directement le <a href="tel:+33746571703"><strong>07 46 57 17 03</strong></a>.</p>
-        <form id="contact-form" method="post" action="/api/contact.php">
+        <form id="contact-form" method="post" action="/api/contact.php" autocomplete="on">
+          <!-- Honeypot anti-spam : invisible aux humains, rempli par les robots -->
+          <div style="position:absolute;left:-9999px;top:-9999px" aria-hidden="true">
+            <label for="website">Ne pas remplir</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+          </div>
           <div class="form-grid">
             <div class="form-field">
               <label for="nom">Nom complet <span class="req">*</span></label>
